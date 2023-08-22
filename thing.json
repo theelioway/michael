@@ -1,0 +1,44 @@
+{
+  "alternateAame": "CLI, the elioWay",
+  "description": "A CLI controller written witb Schema Actions.",
+  "identifier": "michael",
+  "mainEntityOfPage": "Action",
+  "name": "A CLI controller",
+  "url": "https://michael.thing.theElioWay.com",
+  "ItemList": {
+    "itemListElement": [
+      {
+        "mainEntityOfPage": "ChooseAction",
+        "potentialAction": "ChooseAction",
+        "ChooseAction": {
+          "actionOption": { "url": "a-to-z.json" }
+        }
+      },
+      {
+        "mainEntityOfPage": "QuoteAction",
+        "potentialAction": "QuoteAction"
+      },
+      {
+        "mainEntityOfPage": "FindAction",
+        "potentialAction": "FindAction",
+        "FindAction": {
+          "instrument": {
+            "mainEntityOfPage": "ReadAction"
+          }
+        }
+      },
+      {
+        "mainEntityOfPage": "ReadAction",
+        "url": "a-to-z.json"
+      },
+      {
+        "mainEntityOfPage": "ReadAction",
+        "url": "thing.json"
+      },
+      {
+        "mainEntityOfPage": "ImportAction",
+        "url": "thing.js"
+      }
+    ]
+  }
+}

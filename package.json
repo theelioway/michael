@@ -1,0 +1,34 @@
+{
+  "description": "A CLI builder written with Schema Actions, the elioWay.",
+  "name": "michael",
+  "private": true,
+  "tew": {
+    "lifecycle": "experimental",
+    "chisel": {
+      "Home": "elioangels"
+    }
+  },
+  "bin": "./bin/index.js",
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.0"
+  },
+  "homepage": "https://elioway.gitlab.io/elioangels/michael/",
+  "keywords": [
+    "cli",
+    "elioway",
+    "nodejs"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/elioangels/michael/"
+  },
+  "scripts": {
+    "michael": "node bin/index.js",
+    "prettier": "prettier --list-different --write \"**/*.{css,html,js,json,md,mjs,scss,ts,yaml}\" \"!package.json\""
+  },
+  "type": "module"
+}

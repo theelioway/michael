@@ -1,0 +1,77 @@
+{
+  "alternateAame": "A to Z, the elioWay",
+  "description": "The iternery of a trip from Aberdeen to Zennor by land",
+  "identifier": "a-to-z",
+  "mainEntityOfPage": "TravelAction",
+  "name": "A Trip Aberdeen to Zennor",
+  "applicationCategory": "TravelAction",
+  "operatingSystem": "Any",
+  "url": "https://a-to-z.thing.theElioWay.com",
+  "Action": {
+    "actionStatus": "PotentialActionStatus"
+  },
+  "MoveAction": {
+    "distance": "1500km"
+  },
+  "TravelAction": {
+    "fromLocation": "Aberdeen",
+    "toLocation": "Zennor"
+  },
+  "ItemList": {
+    "itemListElement": [
+      {
+        "identifier": "leg-1",
+        "mainEntityOfPage": "TrainTrip",
+        "name": "Leg 1: Aberdeen to London Euston",
+        "TrainTrip": {
+          "arrivalPlatform": "1",
+          "arrivalStation": "London Euston",
+          "departurePlatform": "11",
+          "departureStation": "Aberdeen",
+          "departureTime": "2023-09-01T09:00:00",
+          "arrivalTime": "2023-09-01T14:00:00",
+          "trainNumber": "ABC123"
+        }
+      },
+      {
+        "identifier": "leg-2",
+        "mainEntityOfPage": "TouristTrip",
+        "name": "Leg 2: Euston to Paddington via Ricky's Rickshaws",
+        "TouristTrip": {
+          "arrivalStation": "London Paddington",
+          "departureStation": "London Euston",
+          "departureTime": "2023-09-01T15:30:00",
+          "arrivalTime": "2023-09-01T15:45:00",
+          "provider": "Ricky's Rickshaw"
+        }
+      },
+      {
+        "identifier": "leg-3",
+        "mainEntityOfPage": "TrainTrip",
+        "name": "Leg 3: London Paddington to Penzance",
+        "TrainTrip": {
+          "arrivalPlatform": "1",
+          "arrivalStation": "Penzance",
+          "departurePlatform": "4",
+          "departureStation": "London Paddington",
+          "departureTime": "2023-09-01T16:00:00",
+          "arrivalTime": "2023-09-01T20:00:00",
+          "trainNumber": "XYZ456"
+        }
+      },
+      {
+        "identifier": "leg-4",
+        "mainEntityOfPage": "BusTrip",
+        "name": "Leg 4: Penzance to Zennor",
+        "BusTrip": {
+          "arrivalStation": "Zennor",
+          "departureBusStop": "B",
+          "departureStation": "Penzance",
+          "departureTime": "2023-09-01T21:00:00",
+          "arrivalTime": "2023-09-01T21:30:00",
+          "busNumber": "DEF789"
+        }
+      }
+    ]
+  }
+}
