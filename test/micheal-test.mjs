@@ -1,8 +1,10 @@
-const should = require("chai").should()
-const michael = require("../michael")
+import { should } from "chai"
+import { callMichael } from "../michael.js"
 
-describe("module | michael", function (hooks) {
-  it("fetches michael", () => {
-    michael().should.equal("michael")
+should()
+
+describe("module | callMichael", () => {
+  it("gets a Michael", () => {
+    callMichael().should.eql({ potentialAction: "Action" })
   })
 })

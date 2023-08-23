@@ -1,4 +1,6 @@
-const should = require("chai").should()
+import { should } from "chai"
+
+should()
 
 describe("Mocha Example Test", () => {
   it("never fails", () => {

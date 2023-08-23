@@ -21,6 +21,7 @@ A CLI framework you can use to build CLI applications the elioWay.
 ```
 npm i @elioway/michael -g
 npm run michael -- ReadAction url=a-to-z.json
+npm run michael -- ReadAction url=thing.json
 npm run michael -- FindAction url=a-to-z.json instrument=identifier:leg-1
 ```
 

@@ -5,7 +5,15 @@ import { pick } from "lodash-es"
  * @returns {Thing}
  */
 export const QuoteAction = fields => thing => {
-  console.log(pick(thing, fields))
+  thing = thing || {}
+  thing = pick(
+    {
+      mainEntityOfPage: "QuoteAction",
+      ...thing,
+    },
+    fields,
+  )
+  console.log(thing)
   return thing
 }
 

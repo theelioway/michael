@@ -3,12 +3,12 @@
  * @param {String} thing.Actiion.error especially.
  * @returns {Thing}
  */
-export const ErrorT = thing =>
-  new Object({
+export const ErrorT = thing => {
+  thing = thing || {}
+  thing.mainEntityOfPage = thing.mainEntityOfPage || "Action"
+  return new Object({
     ...thing,
-    additionalType: "ErrorT",
-    mainEntityOfPage: "Action",
-    name: thing.mainEntityOfPage.slice(0, -6) + " Error",
+    name: [thing.mainEntityOfPage.slice(0, -6), "Error"].join(" ").trim(),
     Action: {
       error: "Something went wrong.",
       ...thing.Action,
@@ -18,5 +18,6 @@ export const ErrorT = thing =>
       itemListElement: [],
     },
   })
+}
 
 export default ErrorT

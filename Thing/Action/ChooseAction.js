@@ -1,11 +1,31 @@
-import { find } from "lodash-es"
+import { find, matches } from "lodash-es"
+import { parseArgs } from "../../lib/parseArgs.js"
+import ErrorT from "../ErrorT.js"
 
 /** ChooseAction: Choose one thing from a `thing`'s list.
  *
  * @param {Thing} thing.ChooseAction.actionOption with enough unique info to find.
  * @returns {Thing}
  */
-export const ChooseAction = thing =>
-  find(thing.ItemList.itemListElement, matches(thing.ChooseAction.actionOption))
+export const ChooseAction = thing => {
+  thing = thing || {}
+  thing.ItemList = thing.ItemList || {}
+  thing.ItemList.itemListElement = thing.ItemList.itemListElement || []
+  thing.mainEntityOfPage = thing.mainEntityOfPage || "ChooseAction"
+  thing.ChooseAction = thing.ChooseAction || {}
+  thing.ChooseAction.actionOption = thing.ChooseAction.actionOption || ""
+  let ACTIONOPTION = parseArgs(
+    thing.ChooseAction.actionOption.replace(/:/g, "=").split(","),
+  )
+  let chosenThing = find(thing.ItemList.itemListElement, matches(ACTIONOPTION))
+  if (!chosenThing) {
+    return ErrorT({
+      ...thing,
+      description: "Search " + thing.ChooseAction.actionOption,
+      Action: { error: "Nothing found." },
+    })
+  }
+  return chosenThing
+}
 
 export default ChooseAction

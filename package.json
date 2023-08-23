@@ -2,18 +2,27 @@
   "description": "A CLI builder written with Schema Actions, the elioWay.",
   "name": "michael",
   "private": true,
-  "tew": {
-    "lifecycle": "experimental",
-    "chisel": {
-      "Home": "elioangels"
-    }
+  "mainEntityOfPage": "SoftwareSourceCode",
+  "SoftwareSourceCode": {
+    "codeSampleType": "experimental",
+    "targetProduct": "elioangels"
+  },
+  "WebPage": {
+    "breadcrumb": [
+      "elioway",
+      "elioangels",
+      "Named",
+      "michael"
+    ]
   },
   "bin": "./bin/index.js",
   "dependencies": {
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "prettier": "^2.8.0"
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "prettier": "^3.0.2"
   },
   "homepage": "https://elioway.gitlab.io/elioangels/michael/",
   "keywords": [
@@ -28,7 +37,8 @@
   },
   "scripts": {
     "michael": "node bin/index.js",
-    "prettier": "prettier --list-different --write \"**/*.{css,html,js,json,md,mjs,scss,ts,yaml}\" \"!package.json\""
+    "prettier": "prettier --list-different --write \"**/*.{css,html,js,json,md,mjs,scss,ts,yaml}\"",
+    "test": "mocha  --exit --timeout 3000 --recursive"
   },
   "type": "module"
 }

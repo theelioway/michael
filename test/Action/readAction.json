@@ -1,0 +1,10 @@
+{
+  "description": "A ReadAction from `*.json` file test",
+  "identifier": "readAction",
+  "mainEntityOfPage": "ReadAction",
+  "name": "ReadAction Test",
+  "url": "https://ReadAction.theElioWay.com",
+  "ItemList": {
+    "itemListElement": []
+  }
+}

@@ -7,6 +7,7 @@ import QuoteAction from "./QuoteAction.js"
 import ReadAction from "./ReadAction.js"
 import ReceiveAction from "./ReceiveAction.js"
 import SearchAction from "./SearchAction.js"
+import UpdateAction from "./UpdateAction.js"
 import ViewAction from "./ViewAction.js"
 
 export const Actions = new Array(
@@ -117,14 +118,18 @@ export const Actions = new Array(
   "WantAction",
   "WatchAction",
   "WearAction",
-  "WinAction"
+  "WinAction",
 ).reduce(
   (acc, key) =>
     new Object({
       ...acc,
-      [key]: { Action: { target: thing => console.log(key, thing) } },
+      // Default action is to return `thing` with its Action completed.
+      [key]: {
+        mainEntityOfPage: key,
+        Action: { target: Action("CompletedActionStatus") },
+      },
     }),
-  {}
+  {},
 )
 
 export {
@@ -137,6 +142,7 @@ export {
   ReadAction,
   ReceiveAction,
   SearchAction,
+  UpdateAction,
   ViewAction,
 }
 
@@ -151,5 +157,6 @@ export default {
   ReadAction,
   ReceiveAction,
   SearchAction,
+  UpdateAction,
   ViewAction,
 }
