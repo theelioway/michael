@@ -4,11 +4,14 @@ import UpdateAction from "../../Thing/Action/UpdateAction.js"
 should()
 
 describe("module | UpdateAction", () => {
-  it("UpdateAction on blank", () => {
+  it("the least UpdateAction for a `thing` undefined", () => {
     UpdateAction("ActiveActionStatus")().should.eql({
       mainEntityOfPage: "UpdateAction",
       Action: {
         actionStatus: "ActiveActionStatus",
+      },
+      ItemList: {
+        itemListElement: [],
       },
     })
   })
@@ -20,6 +23,9 @@ describe("module | UpdateAction", () => {
       mainEntityOfPage: "UpdateAction",
       Action: {
         actionStatus: "ActiveActionStatus",
+      },
+      ItemList: {
+        itemListElement: [],
       },
     })
   })

@@ -1,14 +1,14 @@
 import { should } from "chai"
-import DiscoverAction from "../../Thing/Action/DiscoverAction.js"
+import FindAction from "../../Thing/Action/FindAction.js"
 
 should()
 
-describe("module | DiscoverAction", () => {
-  it("DiscoverActions", () => {
-    DiscoverAction().should.eql({
-      description: `Discover ""`,
-      mainEntityOfPage: "DiscoverAction",
-      name: "Discover Results",
+describe("module | FindAction", () => {
+  it("the least FindAction  for a `thing` undefined", () => {
+    FindAction().should.eql({
+      description: `Find ""`,
+      mainEntityOfPage: "FindAction",
+      name: "Find Results",
       Action: {
         instrument: "",
       },
@@ -17,8 +17,8 @@ describe("module | DiscoverAction", () => {
       },
     })
   })
-  it("DiscoverActions", () => {
-    DiscoverAction({
+  it("FindActions", () => {
+    FindAction({
       Action: {
         instrument: "sameAs:Dog,alternateType:Small",
       },
@@ -32,9 +32,9 @@ describe("module | DiscoverAction", () => {
         ],
       },
     }).should.eql({
-      description: 'Discover "sameAs:Dog,alternateType:Small"',
-      mainEntityOfPage: "DiscoverAction",
-      name: "Discover Results",
+      description: 'Find "sameAs:Dog,alternateType:Small"',
+      mainEntityOfPage: "FindAction",
+      name: "Find Results",
       Action: {
         instrument: "sameAs:Dog,alternateType:Small",
       },

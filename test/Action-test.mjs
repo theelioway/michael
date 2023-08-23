@@ -11,6 +11,9 @@ describe("module | Action", () => {
       Action: {
         actionStatus: "PotentialActionStatus",
       },
+      ItemList: {
+        itemListElement: [],
+      },
     }
     const actualThing = Action()
     // Can't test for equality against functions.

@@ -4,8 +4,13 @@ import ReceiveAction from "../../Thing/Action/ReceiveAction.js"
 should()
 
 describe("module | ReceiveAction", () => {
-  it("blank ReceiveAction", () => {
-    ReceiveAction("").should.eql({ mainEntityOfPage: "ReceiveAction" })
+  it("the least ReceiveAction for a `thing` undefined", () => {
+    ReceiveAction().should.eql({
+      mainEntityOfPage: "ReceiveAction",
+      ItemList: {
+        itemListElement: [],
+      },
+    })
   })
   it("recieves a JSON as string `thing`", () => {
     ReceiveAction(
@@ -14,6 +19,9 @@ describe("module | ReceiveAction", () => {
       identifier: "receiveaction",
       mainEntityOfPage: "ReceiveAction",
       name: "ReceiveAction thing",
+      ItemList: {
+        itemListElement: [],
+      },
     })
   })
 })

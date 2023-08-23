@@ -4,7 +4,7 @@ import ViewAction from "../../Thing/Action/ViewAction.js"
 should()
 
 describe("module | ViewAction", () => {
-  it("blank ViewAction", () => {
+  it("the least ViewAction for a `thing` undefined", () => {
     ViewAction().should.eql({
       mainEntityOfPage: "ViewAction",
       ItemList: {

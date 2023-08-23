@@ -5,6 +5,6 @@ export default {
   name: "ImportAction Test",
   url: "https://ImportAction.theElioWay.com",
   ItemList: {
-    itemListElement: []
-  }
+    itemListElement: [],
+  },
 }

@@ -1,11 +1,12 @@
 import { set } from "lodash-es"
+import ItemList from "./Intangible/ItemList.js"
 
 /** Action: Creates a new Action of `thing.Action.actionStatus`=`ActionStatusType`.
  *
  * @returns {Thing}
  */
 export const Action = thing => {
-  thing = thing || {}
+  thing = ItemList(thing)
   const { Action } = thing
   return new Object({
     mainEntityOfPage: "Action",

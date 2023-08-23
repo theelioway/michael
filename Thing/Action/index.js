@@ -1,6 +1,5 @@
 import Action from "../Action.js"
 import ChooseAction from "./ChooseAction.js"
-import DiscoverAction from "./DiscoverAction.js"
 import FindAction from "./FindAction.js"
 import ImportAction from "./ImportAction.js"
 import QuoteAction from "./QuoteAction.js"
@@ -9,6 +8,7 @@ import ReceiveAction from "./ReceiveAction.js"
 import SearchAction from "./SearchAction.js"
 import UpdateAction from "./UpdateAction.js"
 import ViewAction from "./ViewAction.js"
+import WriteAction from "./WriteAction.js"
 
 export const Actions = new Array(
   "Action",
@@ -135,7 +135,6 @@ export const Actions = new Array(
 export {
   Action,
   ChooseAction,
-  DiscoverAction,
   FindAction,
   ImportAction,
   QuoteAction,
@@ -144,13 +143,13 @@ export {
   SearchAction,
   UpdateAction,
   ViewAction,
+  WriteAction,
 }
 
 export default {
   ...Actions,
   Action,
   ChooseAction,
-  DiscoverAction,
   FindAction,
   ImportAction,
   QuoteAction,
@@ -159,4 +158,5 @@ export default {
   SearchAction,
   UpdateAction,
   ViewAction,
+  WriteAction,
 }

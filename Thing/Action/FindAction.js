@@ -1,16 +1,16 @@
 import { filter, matches } from "lodash-es"
 import { parseArgs } from "../../lib/parseArgs.js"
+import ItemList from "../Intangible/ItemList.js"
 
-/** DiscoverAction: Some `things` in  `thing`'s list.
+/** FindAction: Some `things` in  `thing`'s list.
  *
  * @param {String} thing.Action.instrument of comparison.
  * @returns {Thing}
  */
-export const DiscoverAction = thing => {
-  thing = thing || {}
-  thing.ItemList = thing.ItemList || {}
+export const FindAction = thing => {
+  thing = ItemList(thing)
   thing.ItemList.itemListElement = thing.ItemList.itemListElement || []
-  thing.mainEntityOfPage = thing.mainEntityOfPage || "DiscoverAction"
+  thing.mainEntityOfPage = thing.mainEntityOfPage || "FindAction"
   thing.Action = thing.Action || {}
   thing.Action.instrument = thing.Action.instrument || ""
   let INSTRUMENT = parseArgs(
@@ -34,4 +34,4 @@ export const DiscoverAction = thing => {
     },
   })
 }
-export default DiscoverAction
+export default FindAction

@@ -1,16 +1,19 @@
+import { set } from "lodash-es"
 import { parseArgs } from "./lib/index.js"
 
 export const pipeline = async (thing, actions) => {
+  thing = thing || {}
+  actions = actions || []
   return actions.reduce(async (prevAction, action) => {
     const prevThing = await prevAction
-
     return action.Action.target(prevThing)
   }, Promise.resolve(thing))
 }
 
-export const callMichael = thing => {
+export const callMicheal = thing => {
   let [, , potentialAction, ...args] = process.argv
   // default for no args
+  thing = thing || {}
   args = args || []
   // default first arg
   if (potentialAction) {
@@ -24,18 +27,17 @@ export const callMichael = thing => {
   } else {
     potentialAction = "Action"
   }
+  let parsedArgs = parseArgs(args)
   thing = {
     potentialAction,
     ...thing,
-    ...parseArgs(args),
   }
+  Object.entries(parsedArgs).forEach(([path, value]) => set(thing, path, value))
   return thing
 }
 
 export const michael = async (thing, actions) => {
-  await pipeline(thing, actions)
+  return await pipeline(thing, actions)
 }
-
-// export { parseArgs,  }
 
 export default michael

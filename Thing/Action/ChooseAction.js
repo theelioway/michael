@@ -1,6 +1,7 @@
 import { find, matches } from "lodash-es"
 import { parseArgs } from "../../lib/parseArgs.js"
 import ErrorT from "../ErrorT.js"
+import ItemList from "../Intangible/ItemList.js"
 
 /** ChooseAction: Choose one thing from a `thing`'s list.
  *
@@ -8,9 +9,7 @@ import ErrorT from "../ErrorT.js"
  * @returns {Thing}
  */
 export const ChooseAction = thing => {
-  thing = thing || {}
-  thing.ItemList = thing.ItemList || {}
-  thing.ItemList.itemListElement = thing.ItemList.itemListElement || []
+  thing = ItemList(thing)
   thing.mainEntityOfPage = thing.mainEntityOfPage || "ChooseAction"
   thing.ChooseAction = thing.ChooseAction || {}
   thing.ChooseAction.actionOption = thing.ChooseAction.actionOption || ""

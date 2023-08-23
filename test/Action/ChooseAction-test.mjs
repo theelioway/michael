@@ -4,7 +4,7 @@ import ChooseAction from "../../Thing/Action/ChooseAction.js"
 should()
 
 describe("module | ChooseAction", () => {
-  it("blank `thing` ChooseAction error", () => {
+  it("the least ChooseAction for a `thing` undefined", () => {
     ChooseAction().should.eql({
       mainEntityOfPage: "ChooseAction",
       description: "Search ",

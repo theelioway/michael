@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { callMichael, michael } from "../michael.js"
+import { callMicheal, michael } from "../michael.js"
 import Thing from "../Thing.js"
 import {
   // Action,
@@ -58,7 +58,7 @@ const QUOTEACTION = {
 }
 
 const commands = {
-  callMichael: [THING, VIEWACTION],
+  callMicheal: [THING, VIEWACTION],
   Action: [THING, VIEWACTION],
   ChooseAction: [READACTION, RECEIVEACTION, THING, CHOOSEACTION, QUOTEACTION],
   FindAction: [READACTION, RECEIVEACTION, THING, FINDACTION, VIEWACTION],
@@ -70,7 +70,7 @@ const commands = {
 }
 
 const michaelCLI = async thing => {
-  thing = callMichael(thing)
+  thing = callMicheal(thing)
   await michael(thing, commands[thing.potentialAction])
 }
 

@@ -1,5 +1,6 @@
 import { filter, some, isEqual } from "lodash-es"
 import { parseArgs } from "../../lib/parseArgs.js"
+import ItemList from "../Intangible/ItemList.js"
 
 /** SearchAction: returns partial matches from a `thing`'s list.
  *
@@ -7,9 +8,7 @@ import { parseArgs } from "../../lib/parseArgs.js"
  * @returns {Thing}
  */
 export const SearchAction = thing => {
-  thing = thing || {}
-  thing.ItemList = thing.ItemList || {}
-  thing.ItemList.itemListElement = thing.ItemList.itemListElement || []
+  thing = ItemList(thing)
   thing.SearchAction = thing.SearchAction || {}
   thing.SearchAction.query = thing.SearchAction.query || ""
   const QUERY = parseArgs(

@@ -1,10 +1,12 @@
+import ItemList from "../Intangible/ItemList.js"
+
 /** ImportAction: import a node module.
  *
  * @param {Thing} thing.url e.g. to import `thing.js`
  * @returns {Thing}
  */
 export const ImportAction = async thing => {
-  thing = thing || {}
+  thing = ItemList(thing)
   thing.mainEntityOfPage = thing.mainEntityOfPage || "ImportAction"
   let hasError =
     (thing && !thing.url) || (thing && thing.url && !thing.url.endsWith("js"))

@@ -5,8 +5,29 @@
 
 ## Nutshell
 
-**michael** is a CLI driven by an engaged `thing` listing `ControlAction`s.
+- How to write `Actions`.
+- How to write a CLI using micheal and an `Actions` hub.
+- How to write an API using micheal and an `Actions` hub.
 
-## `ControlAction`
+## elioWay Endpoints
 
-Format your `ControlActions`
+All **elioWay** `endpoints` should:
+
+1. be named after Schema.org types for general purpose.
+2. be named after Schema.org `Action` types to handle commands.
+3. take a `thing` (optionally).
+4. return a `thing`.
+
+For example the following endpoint ensures every thing has these default properties.
+
+```javascript
+const Thing = thing => {
+  thing = thing || {}
+  thing.mainEntityOfPage = thing.mainEntityOfPage || "Thing"
+  thing.ItemList = thing.ItemList || {}
+  thing.ItemList.itemListElement = thing.ItemList.itemListElement || []
+  return new Object({
+    ...thing,
+  })
+}
+```

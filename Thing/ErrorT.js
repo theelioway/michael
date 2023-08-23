@@ -14,9 +14,6 @@ export const ErrorT = thing => {
       ...thing.Action,
       actionStatus: "FailedActionStatus",
     },
-    ItemList: {
-      itemListElement: [],
-    },
   })
 }
 

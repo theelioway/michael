@@ -4,7 +4,7 @@ import ImportAction from "../../Thing/Action/ImportAction.js"
 should()
 
 describe("module | ImportAction", () => {
-  it("blank ImportAction", async () => {
+  it("the least ImportAction for a `thing` undefined", async () => {
     let importAction = await ImportAction()
     importAction.should.eql({
       mainEntityOfPage: "ImportAction",

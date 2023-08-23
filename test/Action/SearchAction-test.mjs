@@ -4,7 +4,7 @@ import SearchAction from "../../Thing/Action/SearchAction.js"
 should()
 
 describe("module | SearchAction", () => {
-  it("blank SearchAction", () => {
+  it("the least SearchAction for a `thing` undefined", () => {
     SearchAction().should.eql({
       description: 'Search ""',
       mainEntityOfPage: "SearchAction",

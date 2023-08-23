@@ -1,30 +1,28 @@
 import { promises as fs } from "fs"
 import ItemList from "../Intangible/ItemList.js"
 
-/** ReadAction: Read a file from disk.
+/** WriteAction: Write a file to disk.
  *
  * @param {Thing} thing.url as the path to the file.
  * @returns {Thing}
  */
-export const ReadAction = async thing => {
+export const WriteAction = async thing => {
   thing = ItemList(thing)
-  thing.mainEntityOfPage = thing.mainEntityOfPage || "ReadAction"
+  thing.mainEntityOfPage = thing.mainEntityOfPage || "WriteAction"
   if (thing && !thing.url) {
-    return new Object({
+    return ItemList({
       ...thing,
-      mainEntityOfPage: "ReadAction",
+      mainEntityOfPage: "WriteAction",
       name: thing.mainEntityOfPage.slice(0, -6) + " Error",
       Action: {
         error: "Missing `thing.url`",
         ...thing.Action,
         actionStatus: "FailedActionStatus",
       },
-      ItemList: {
-        itemListElement: [],
-      },
     })
   } else {
-    return await fs.readFile(thing.url, "utf8")
+    await fs.writeFile(thing.url, JSON.stringify(thing, null, 2), "utf8")
+    return thing
   }
 }
-export default ReadAction
+export default WriteAction
