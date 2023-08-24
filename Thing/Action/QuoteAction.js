@@ -6,6 +6,7 @@ import ItemList from "../Intangible/ItemList.js"
  * @returns {Thing}
  */
 export const QuoteAction = fields => thing => {
+  const mainEntityOfPage = "QuoteAction"
   thing = ItemList(thing)
   thing = pick(
     {

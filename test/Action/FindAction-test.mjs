@@ -20,28 +20,28 @@ describe("module | FindAction", () => {
   it("FindActions", () => {
     FindAction({
       Action: {
-        instrument: "sameAs:Dog,alternateType:Small",
+        instrument: "sameAs:Dog,additionalType:Small",
       },
       ItemList: {
         itemListElement: [
-          { sameAs: "Dog", identifier: "Alsation", alternateType: "Big" },
-          { sameAs: "Cat", identifier: "Siamese", alternateType: "Small" },
-          { sameAs: "Cat", identifier: "Tabby", alternateType: "Small" },
-          { sameAs: "Dog", identifier: "Poodle", alternateType: "Small" },
-          { sameAs: "Dog", identifier: "Terrier", alternateType: "Small" },
+          { sameAs: "Dog", identifier: "Alsation", additionalType: "Big" },
+          { sameAs: "Cat", identifier: "Siamese", additionalType: "Small" },
+          { sameAs: "Cat", identifier: "Tabby", additionalType: "Small" },
+          { sameAs: "Dog", identifier: "Poodle", additionalType: "Small" },
+          { sameAs: "Dog", identifier: "Terrier", additionalType: "Small" },
         ],
       },
     }).should.eql({
-      description: 'Find "sameAs:Dog,alternateType:Small"',
+      description: 'Find "sameAs:Dog,additionalType:Small"',
       mainEntityOfPage: "FindAction",
       name: "Find Results",
       Action: {
-        instrument: "sameAs:Dog,alternateType:Small",
+        instrument: "sameAs:Dog,additionalType:Small",
       },
       ItemList: {
         itemListElement: [
-          { sameAs: "Dog", identifier: "Poodle", alternateType: "Small" },
-          { sameAs: "Dog", identifier: "Terrier", alternateType: "Small" },
+          { sameAs: "Dog", identifier: "Poodle", additionalType: "Small" },
+          { sameAs: "Dog", identifier: "Terrier", additionalType: "Small" },
         ],
       },
     })

@@ -1,6 +1,7 @@
 {
   "description": "A CLI builder written with Schema Actions, the elioWay.",
-  "name": "michael",
+  "name": "@elioway/michael",
+  "identifier": "michael",
   "private": true,
   "mainEntityOfPage": "SoftwareSourceCode",
   "SoftwareSourceCode": {
@@ -31,6 +32,7 @@
     "nodejs"
   ],
   "license": "MIT",
+  "main": "./michael.js",
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/elioangels/michael/"
