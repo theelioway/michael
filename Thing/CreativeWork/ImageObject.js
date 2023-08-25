@@ -6,6 +6,25 @@ import ItemList from "../Intangible/ItemList.js"
  * @param {Thing} thing.ImageObject.exifData already parsed from file.
  * @returns {Thing}
  */
+
+/**
+ * Returns the least `thing` allowed.
+ *
+ * @param {Object_Thing} thing - The `thing` object.
+ * @mutates {Object_Thing} `thing` object
+ * @into {Object_Thing} `thing` object
+ * @returns {Object_ActionThing} The modified `thing` object.
+ * @example
+ * const result1 = await Thing()
+ * console.assert(!result1.identifier)
+ * console.assert(result1.mainEntityOfPage==="Thing")
+ * console.assert(result1.ItemList.itemListElement)
+ *
+ * const result2 = await Thing({ identifier: "myThing" })
+ * console.assert(result2.identifier==="myThing")
+ * console.assert(result2.mainEntityOfPage==="Thing")
+ * console.assert(result2.ItemList.itemListElement)
+ */
 export const ImageObject = thing => {
   thing = ItemList(thing)
   let { name, ImageObject } = thing

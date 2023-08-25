@@ -1,61 +1,23 @@
-import { pick } from "lodash-es"
-import ItemList from "../Intangible/ItemList.js"
+import Thing from "../Thing/ItemList.js"
 
-function convertToPickList(obj, prefix = "") {
-  return Object.keys(obj).reduce((paths, key) => {
-    const value = obj[key]
-
-    if (value && typeof value === "object" && !Array.isArray(value)) {
-      const nestedPaths = convertToPickList(value, prefix + key + ".")
-      paths.push(...nestedPaths)
-    } else {
-      paths.push(prefix + key)
-    }
-
-    return paths
-  }, [])
-}
-
-/** Offer: Make an offer of another `thing`.
+/**
+ * @example
+ * let Offer = require("@elioway/michael/Thing/Offer.js")
+ * const result1 = await Offer()
+ * console.assert(!result1.identifier)
+ * console.assert(result1.mainEntityOfPage==="Offer")
+ * console.assert(result1.ItemList.itemListElement)
  *
- * @param {Thing} thing.ImageObject.exifData already parsed from file.
- * @returns {Thing}
+ * const result2 = await Thing({ identifier: "my-thing" })
+ * console.assert(result2.identifier==="my-thing")
+ * console.assert(result2.mainEntityOfPage==="Offer")
+ * console.assert(result2.ItemList.itemListElement)
  */
 export const Offer = thing => {
-  thing = ItemList(thing)
-  let {
-    Aperture,
-    FileSize,
-    Flash,
-    FocalLength,
-    GPSLatitude,
-    GPSLongitude,
-    ISO,
-    Lens,
-    Megapixels,
-    Software,
-    tz,
-  } = thing.ImageObject.exifData
-  return pick(
-    thing,
-    convertToPickList({
-      ImageObject: {
-        exifData: {
-          Aperture,
-          FileSize,
-          Flash,
-          FocalLength,
-          GPSLatitude,
-          GPSLongitude,
-          ISO,
-          Lens,
-          Megapixels,
-          Software,
-          tz,
-        },
-      },
-    }),
-  )
+  const mainEntityOfPage = "Offer"
+  thing = Thing({ mainEntityOfPage, ...thing })
+  thing.Offer = thing.Offer || {}
+  return new Object(thing)
 }
 
 export default Offer

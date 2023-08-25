@@ -1,29 +1,24 @@
-import { set } from "lodash-es"
-import ItemList from "./Intangible/ItemList.js"
+import Thing from "../Thing.js"
 
-/** CreativeWork: Creates a new CreativeWork of `thing.CreativeWork.actionStatus`=`CreativeWorkStatusType`.
+/**
+ * Returns the least CreativeWork `thing` allowed.
+ * @example
+ * let Action = require("@elioway/michael/Thing/CreativeWork.js")
+ * const result1 = await CreativeWork()
+ * console.assert(!result1.identifier)
+ * console.assert(result1.mainEntityOfPage==="CreativeWork")
+ * console.assert(result1.ItemList.itemListElement)
  *
- * @returns {Thing}
+ * const result2 = await Thing({ identifier: "my-thing" })
+ * console.assert(result2.identifier==="my-thing")
+ * console.assert(result2.mainEntityOfPage==="CreativeWork")
+ * console.assert(result2.ItemList.itemListElement)
  */
 export const CreativeWork = thing => {
-  thing = ItemList(thing)
-  thing.ChooseCreativeWork = thing.ChooseCreativeWork || {}
-  return new Object({
-    mainEntityOfPage: "CreativeWork",
-    ...thing,
-    CreativeWork: {
-      ...CreativeWork,
-      // Default Start CreativeWork
-      actionStatus: "PotentialCreativeWorkStatus",
-      // Default CreativeWork to set `actionStatus` = "CompletedCreativeWorkStatus"
-      target: thing =>
-        set(
-          thing || {},
-          "CreativeWork.actionStatus",
-          "CompletedCreativeWorkStatus",
-        ),
-    },
-  })
+  const mainEntityOfPage = "CreativeWork"
+  thing = Thing({ mainEntityOfPage, ...thing })
+  thing.CreativeWork = thing.CreativeWork || {}
+  return new Object(thing)
 }
 
 export default CreativeWork

@@ -16,23 +16,29 @@ function convertToPickList(obj, prefix = "") {
   }, [])
 }
 
-var array = [
-  { dir: "left", code: 97 },
-  { dir: "right", code: 100 },
-]
-
-_.keyBy(array, function (o) {
-  return String.fromCharCode(o.code)
-})
-// => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
-
-_.keyBy(array, "dir")
-// => { 'left': { 'dir': 'left', 'code': 97 }, 'right': { 'dir': 'right', 'code': 100 } }
-
 /** MediaObject: Return a smaller `thing`.
  *
  * @param {Thing} thing.ImageObject.exifData already parsed from file.
  * @returns {Thing}
+ */
+
+/**
+ * Returns the least `thing` allowed.
+ *
+ * @param {Object_Thing} thing - The `thing` object.
+ * @mutates {Object_Thing} `thing` object
+ * @into {Object_Thing} `thing` object
+ * @returns {Object_ActionThing} The modified `thing` object.
+ * @example
+ * const result1 = await Thing()
+ * console.assert(!result1.identifier)
+ * console.assert(result1.mainEntityOfPage==="Thing")
+ * console.assert(result1.ItemList.itemListElement)
+ *
+ * const result2 = await Thing({ identifier: "myThing" })
+ * console.assert(result2.identifier==="myThing")
+ * console.assert(result2.mainEntityOfPage==="Thing")
+ * console.assert(result2.ItemList.itemListElement)
  */
 export const MediaObject = thing => {
   thing = ItemList(thing)

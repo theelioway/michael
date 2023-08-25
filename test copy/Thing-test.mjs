@@ -4,7 +4,7 @@ import Thing from "../Thing.js"
 should()
 
 describe("module | Thing", () => {
-  it.only("returns `thing` from blank", () => {
+  it("returns `thing` from blank", () => {
     Thing().should.eql({
       mainEntityOfPage: "Thing",
       ItemList: {
@@ -12,7 +12,7 @@ describe("module | Thing", () => {
       },
     })
   })
-  it.only("returns `thing` from `thing`", () => {
+  it("returns `thing` from `thing`", () => {
     Thing({ identifier: "thing" }).should.eql({
       identifier: "thing",
       mainEntityOfPage: "Thing",

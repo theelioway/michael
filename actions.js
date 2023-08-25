@@ -23,7 +23,7 @@ const schemaT = buildAction({
   mainEntityOfPage: TURD,
   pontentialAction: "DiscoverAction",
 })
-const takeonT = buildAction({
+const takeupT = buildAction({
   mainEntityOfPage: TURD,
   pontentialAction: "CreateAction",
 })
@@ -45,15 +45,15 @@ const listT = buildAction({
 })
 const unlistT = buildAction({
   mainEntityOfPage: LUTE,
-  pontentialAction: "DeleteAction",
+  pontentialAction: "RejectAction",
 })
-const takeupT = buildAction({
+const takeonT = buildAction({
   mainEntityOfPage: LUTE,
-  pontentialAction: "AddAction",
+  pontentialAction: "UpdateAction.AddAction",
 })
 const enlistT = buildAction({
   mainEntityOfPage: LUTE,
-  pontentialAction: "DeleteAction",
+  pontentialAction: "UpdateAction.AddAction.InsertAction",
 })
 const searchT = buildAction({
   mainEntityOfPage: LUTE,
