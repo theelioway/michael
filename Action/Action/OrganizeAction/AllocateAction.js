@@ -28,7 +28,7 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  *     ]
  * )
  */
-export const AllocateAction = action => {
+export const AllocateAction = function AllocateAction(action) {
   const mainEntityOfPage = "RejectAction"
   action = Action({ ...action, mainEntityOfPage })
   const thing = ItemList(action.Action.object)

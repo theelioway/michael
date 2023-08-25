@@ -25,7 +25,7 @@ import ItemList from "../Intangible/ItemList.js"
  * console.assert(result2.mainEntityOfPage==="Thing")
  * console.assert(result2.ItemList.itemListElement)
  */
-export const ImageObject = thing => {
+export const ImageObject = function ImageObject(thing) {
   thing = ItemList(thing)
   let { name, ImageObject } = thing
   let { exifData } = ImageObject

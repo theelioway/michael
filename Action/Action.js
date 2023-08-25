@@ -35,7 +35,7 @@ import { default as ActionThing } from "../Thing/Action.js"
  *   action2.Action.target(thing2.Action.object)==thing2.Action.result
  * )
  */
-export const Action = action => {
+export const Action = function Action(action) {
   action = ActionThing(action)
   // Run the action
   if (isFunction(thing.Action.target)) {

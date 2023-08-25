@@ -13,7 +13,7 @@ import Thing from "../Thing.js"
  * console.assert(result2.mainEntityOfPage==="Intangible")
  * console.assert(result2.ItemList.itemListElement)
  */
-export const Intangible = thing => {
+export const Intangible = function Intangible(thing) {
   const mainEntityOfPage = "Intangible"
   thing = Thing({ mainEntityOfPage, ...thing })
   thing.Intangible = thing.Intangible || {}

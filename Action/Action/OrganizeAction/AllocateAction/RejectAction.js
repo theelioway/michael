@@ -30,7 +30,7 @@ import Message from "../../../../Thing/CreativeWork/Message.js"
  *   thing.Action.result.ItemList.itemListElement[1].identifier===6
  * )
  */
-export const RejectAction = action => {
+export const RejectAction = function RejectAction(action) {
   const mainEntityOfPage = "RejectAction"
   action = Action({ ...action, mainEntityOfPage })
   const thing = ItemList(action.Action.object)

@@ -11,7 +11,7 @@
  * console.assert(result2.mainEntityOfPage==="Event")
  * console.assert(result2.ItemList.itemListElement)
  */
-export const Event = thing => {
+export const Event = function Event(thing) {
   const mainEntityOfPage = "Event"
   thing = Thing({ mainEntityOfPage, ...thing })
   thing.Event = thing.Event || {}

@@ -16,7 +16,7 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  * console.assert(!action.Action.result.url)
  * console.assert(!action.Action.result.Action)
  */
-export const InstallAction = async action => {
+export const InstallAction = async function InstallAction(action) {
   const mainEntityOfPage = " InstallAction"
 
   action = Action({ ...action, mainEntityOfPage })

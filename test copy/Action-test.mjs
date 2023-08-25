@@ -22,7 +22,7 @@ describe("module | Action", () => {
   })
 
   it("blank Action.target", () => {
-    const expectedTarget = thing =>
+    const expectedTarget = function (thing) {
       set(thing || {}, "Action.actionStatus", "CompletedActionStatus")
     const actualThing = Action()
     actualThing.Action.target().should.eql(expectedTarget())

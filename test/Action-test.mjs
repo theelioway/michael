@@ -1,7 +1,7 @@
 // import { should } from "chai"
-import Thing from "../Thing.js"
+import Action from "../Thing/Action.js"
 import ThingAcceptanceTest from "./ThingAcceptanceTest.js"
 
 // should()
 
-ThingAcceptanceTest(Thing)
+ThingAcceptanceTest(Action)

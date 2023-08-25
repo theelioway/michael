@@ -41,7 +41,7 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  *   ]
  * )
  */
-export const ReplaceAction = action => {
+export const ReplaceAction = function ReplaceAction(action) {
   const mainEntityOfPage = "ReplaceAction"
   action = Action({ ...action, mainEntityOfPage })
   let thing = ItemList(action.Action.object)

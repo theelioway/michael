@@ -45,7 +45,7 @@ import Message from "../../Thing/CreativeWork/Message.js"
  *   result3.Action.result.ItemList.itemListElement.length === 3
  * )
  */
-export const FindAction = action => {
+export const FindAction = function FindAction(action) {
   const mainEntityOfPage = "FindAction"
   action = Action({ ...action, mainEntityOfPage })
   let thing = ItemList(action.Action.object)

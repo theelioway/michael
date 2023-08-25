@@ -28,7 +28,7 @@ import Message from "../../Thing/CreativeWork/Message.js"
  * console.assert(action2.Action.result.identifier==="my-thing")
  * console.assert(!action2.Action.result.url)
  */
-export const CancelAction = action => {
+export const CancelAction = function CancelAction(action) {
   const mainEntityOfPage = "CancelAction"
   action = Action({ ...action, mainEntityOfPage })
   let thing = ItemList(action.Action.object)

@@ -10,7 +10,7 @@ export const pipeline = async (thing, actions) => {
   }, Promise.resolve(thing))
 }
 
-export const callMicheal = thing => {
+export const callMicheal = function (thing) {
   let [, , potentialAction, ...args] = process.argv
   // default for no args
   thing = thing || {}

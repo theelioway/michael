@@ -15,7 +15,7 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  * console.log(`File written: ${result.url}`)
  */
 
-export const ViewAction = action => {
+export const ViewAction = function ViewAction(action) {
   const mainEntityOfPage = "ViewAction"
   action = Action({ ...action, mainEntityOfPage })
   let thing = ItemList(action.Action.object)

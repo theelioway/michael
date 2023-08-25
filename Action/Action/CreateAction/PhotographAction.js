@@ -13,7 +13,7 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  * })
  * console.log(`File written: ${result.url}`)
  */
-export const PhotographAction = async action => {
+export const PhotographAction = async function PhotographAction(action) {
   const mainEntityOfPage = "PhotographAction"
   action = Action({ ...action, mainEntityOfPage })
   let thing = ItemList(action.Action.object)

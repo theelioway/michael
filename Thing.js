@@ -21,7 +21,7 @@ import ItemList from "./Thing/Intangible/ItemList.js"
  * console.assert(result2.mainEntityOfPage==="Thing")
  * console.assert(result2.ItemList.itemListElement)
  */
-export const Thing = thing => {
+export const Thing = function Thing(thing) {
   thing = ItemList(thing)
   thing.mainEntityOfPage = thing.mainEntityOfPage || "Thing"
   return thing

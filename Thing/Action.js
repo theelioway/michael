@@ -39,7 +39,7 @@ import { parseArgs } from "../lib/index.js"
  * console.assert(thing2.Action.result.identifier==="thing")
  * console.assert(thing2.Action.target(thing2.Action.object)===thing2.Action.result)
  */
-export const Action = thing => {
+export const Action = function Action(thing) {
   const mainEntityOfPage = "Action"
   // "thingify" incoming thing
   thing = ItemList(thing)

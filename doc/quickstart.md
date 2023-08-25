@@ -27,7 +27,7 @@ import { merge } from "lodash-es"
  * Fields for "least" are `identifier`, `mainEntityOfPage` and `ItemList`
  * @params {Thing}
  * @returns {Thing} */
-const Thing = thing => {
+const Thing = function (thing) {
   thing = thing || {}
   thing.ItemList = thing.ItemList || {}
   thing.ItemList.itemListElement = thing.ItemList.itemListElement || []

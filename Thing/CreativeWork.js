@@ -14,7 +14,7 @@ import Thing from "../Thing.js"
  * console.assert(result2.mainEntityOfPage==="CreativeWork")
  * console.assert(result2.ItemList.itemListElement)
  */
-export const CreativeWork = thing => {
+export const CreativeWork = function CreativeWork(thing) {
   const mainEntityOfPage = "CreativeWork"
   thing = Thing({ mainEntityOfPage, ...thing })
   thing.CreativeWork = thing.CreativeWork || {}

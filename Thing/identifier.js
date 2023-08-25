@@ -29,7 +29,7 @@ import ItemList from "./Intangible/ItemList.js"
  * console.assert(thing3.mainEntityOfPage==="Thing")
  * console.assert(thing3.ItemList.itemListElement)
  */
-export const identifier = thing => {
+export const identifier = function (thing) {
   thing = ItemList(thing)
   let identifier = kebabCase(thing.name + ` ` + thing.disambiguatingDescription)
   thing.identifier = identifier || "thing"

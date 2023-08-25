@@ -19,7 +19,7 @@ import Message from "../../Thing/CreativeWork/Message.js"
  * console.assert(action.Action.url==="http://Action.theElioWay.com")
  * console.assert(action.Action.actionStatus==="CompletedActionStatus")
  */
-export const UpdateAction = action => {
+export const UpdateAction = function UpdateAction(action) {
   const mainEntityOfPage = "UpdateAction"
   action = Action({ ...action, mainEntityOfPage })
   let thing = ItemList(action.Action.object)

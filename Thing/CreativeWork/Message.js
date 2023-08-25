@@ -21,7 +21,7 @@ import { join } from "lodash-es"
  * console.assert(message1.Message.recipient==="thing@theElioWay.com")
  * console.assert(message1.Message.sender==="thing@theElioWay.com")
  */
-export const Message = action => {
+export const Message = function Message(action) {
   const mainEntityOfPage = "Message"
   return new Object({
     mainEntityOfPage,

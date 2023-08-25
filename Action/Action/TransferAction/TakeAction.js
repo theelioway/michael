@@ -12,7 +12,7 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  * const results = await TakeAction({ Action: { object: thing } })
  * console.assert(results.Action.result.name === "myThing")
  */
-export const TakeAction = action => {
+export const TakeAction = function TakeAction(action) {
   const mainEntityOfPage = "TakeAction"
   action = Action({ ...action, mainEntityOfPage })
   action.Action.result = ItemList({ mainEntityOfPage })

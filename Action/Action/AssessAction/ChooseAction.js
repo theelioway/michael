@@ -44,7 +44,7 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  *  result3.Action.result.identifier === 4
  * )
  */
-export const ChooseAction = action => {
+export const ChooseAction = function ChooseAction(action) {
   const mainEntityOfPage = "ChooseAction"
   action = Action({ ...action, mainEntityOfPage })
   action.ChooseAction = action.ChooseAction || {}

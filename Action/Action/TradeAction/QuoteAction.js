@@ -14,13 +14,14 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  * })
  * console.log(`File written: ${result.url}`)
  */
-export const QuoteAction = fields => thing => {
-  const mainEntityOfPage = "QuoteAction"
-  action = Action({ ...action, mainEntityOfPage })
-  let thing = ItemList(action.Action.object)
-  action.Action.result = pick(thing, fields)
-  action.Action.actionStatus = "CompletedActionStatus"
-  return Message(thing)
-}
+export const QuoteAction = fields =>
+  function QuoteAction(thing) {
+    const mainEntityOfPage = "QuoteAction"
+    action = Action({ ...action, mainEntityOfPage })
+    let thing = ItemList(action.Action.object)
+    action.Action.result = pick(thing, fields)
+    action.Action.actionStatus = "CompletedActionStatus"
+    return Message(thing)
+  }
 
 export default QuoteAction

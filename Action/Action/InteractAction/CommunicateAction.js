@@ -2,7 +2,7 @@ import Action from "../../../Thing/Action.js"
 import ItemList from "../../../Thing/Intangible/ItemList.js"
 import Message from "../../../Thing/CreativeWork/Message.js"
 
-const sendMailMock = action => Message({ ...action })
+const sendMailMock = action => Promise.resolve(Message({ ...action }))
 
 /** `CommunicateAction` which requires  final acceptance.
  * @example
@@ -17,7 +17,7 @@ const sendMailMock = action => Message({ ...action })
  * console.assert(result2.mainEntityOfPage==="Thing")
  * console.assert(result2.ItemList.itemListElement)
  */
-export const CommunicateAction = action => {
+export const CommunicateAction = async function CommunicateAction(action) {
   const mainEntityOfPage = "CommunicateAction"
   action = Action({ ...action, mainEntityOfPage })
   let thing = ItemList(action.Action.object)
@@ -26,7 +26,7 @@ export const CommunicateAction = action => {
   if (typeof action.Action.target === "function") {
     action.Action.result = action.Action.target(message)
   } else {
-    action.Action.result = sendMailMock(message)
+    action.Action.result = await sendMailMock(message)
   }
   action.Action.actionStatus = "CompletedActionStatus"
   return Message(receipt)

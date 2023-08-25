@@ -13,7 +13,7 @@ import Thing from "../Thing.js"
  * console.assert(result2.mainEntityOfPage==="Person")
  * console.assert(result2.ItemList.itemListElement)
  */
-export const Person = thing => {
+export const Person = function Person(thing) {
   const mainEntityOfPage = "Person"
   thing = Thing({ mainEntityOfPage, ...thing })
   thing.Person = thing.Person || {}
