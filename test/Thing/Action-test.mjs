@@ -1,5 +1,5 @@
-import Action from "../Thing/Action.js"
-import ActionAcceptanceTest from "../test-helpers/Thing/ActionAcceptanceTest.js"
+import Action from "../../Thing/Action.js"
+import ActionAcceptanceTest from "../../test-helpers/Thing/ActionAcceptanceTest.js"
 
 ActionAcceptanceTest(Action)
 

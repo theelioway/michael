@@ -1,10 +1,8 @@
-/**
- * `Thing`: convert `thing.name` or `disambiguatingDescription` into `thing.identifier`.
- * */
-import { kebabCase } from "lodash-es"
+import { join, kebabCase } from "lodash-es"
 import ItemList from "./Intangible/ItemList.js"
 
 /**
+ * The identifier property represents any kind of identifier for any kind of Thing
  * Returns the `thing` with an `identifier`.
  * @example
  * const thing1 = await Thing()
@@ -24,8 +22,12 @@ import ItemList from "./Intangible/ItemList.js"
  */
 export const identifier = async function (thing) {
   thing = await ItemList(thing)
-  let identifier = kebabCase(thing.name + ` ` + thing.disambiguatingDescription)
-  thing.identifier = identifier || "thing"
+  if (!thing.identifier) {
+    let identifier = kebabCase(
+      join([thing.name, thing.disambiguatingDescription], " "),
+    )
+    thing.identifier = identifier || "thing"
+  }
   return thing
 }
 

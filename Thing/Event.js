@@ -1,6 +1,7 @@
 import ItemList from "./Intangible/ItemList.js"
 
 /**
+ * An event happening at a certain time and location.
  * @example
  * let Event = require("@elioway/michael/Thing/Event.js")
  * const thing1 = await Event()

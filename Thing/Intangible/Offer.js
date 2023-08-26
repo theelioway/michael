@@ -1,6 +1,7 @@
-import Thing from "../../Thing/ItemList.js"
+import ItemList from "./ItemList.js"
 
 /**
+ * An offer to transfer some rights to an item or to provide a service.
  * @example
  * let Offer = require("@elioway/michael/Thing/Offer.js")
  * const thing1 = await Offer()

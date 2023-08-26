@@ -19,11 +19,6 @@ ThingAcceptanceTest(Thing)
 export const ThingAcceptanceTest = async Thing => {
   let typeName = Thing.name
   describe(`${typeName} Acceptance Test`, () => {
-    // const Action = (thing) => set(thing, "Action.actionStatus", "ActiveActionStatus")
-    // before(async () => {})
-    // beforeEach(async () => {})
-    // after(async () => { })
-    // afterEach(async () => { })
 
     it("returns a `thing` from undefined input", async () => {
       let thing = await Thing()

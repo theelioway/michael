@@ -1,6 +1,7 @@
 import ItemList from "./Intangible/ItemList.js"
 
-/**  The most generic kind of creative work.
+/**
+ * The most generic kind of creative work.
  * @example
  * import CreativeWork from "@elioway/michael/CreativeWork.js"
  * const thing = await CreativeWork()
@@ -16,4 +17,4 @@ export const CreativeWork = async function CreativeWork(thing) {
   return thing
 }
 
-export default Message
+export default CreativeWork

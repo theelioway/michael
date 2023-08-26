@@ -1,14 +1,13 @@
-/** Action: flesh out a default or a new Action endpoint which can be used to transform a given `thing` */
 import { isString, join, set } from "lodash-es"
 import { parseArgs } from "../lib/index.js"
 import ItemList from "./Intangible/ItemList.js"
 import Thing from "../Thing.js"
 
 /**
- * Prepares an `action` with the data needed to perform an action on the `thing`
+ * An action performed by a direct agent and indirect participants upon
+ * a direct object.
  * @example
- * let Action = require("@elioway/michael/Thing/Action.js")
- *
+ * let Action = require("@elioway/michael/Thing/Action.js") *
  * const thing1 = await Action()
  * console.assert(!thing1.identifier)
  * console.assert(thing1.mainEntityOfPage==="Action")

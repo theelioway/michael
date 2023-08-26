@@ -1,5 +1,5 @@
 /**
- * Returns `ItemList` as a key in a given `thing`.
+ * A list of items of any sort—for example.
  * @example
  * const thing1 = await Thing()
  * console.assert(!thing1.identifier)

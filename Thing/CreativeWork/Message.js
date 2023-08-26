@@ -8,7 +8,8 @@ const ACTIONSTATUSMESSAGE = {
   PotentialActionStatus: "supported",
 }
 
-/** Message: A single message from a sender to one or more organizations or people.
+/**
+ * A single message from a sender to one or more organizations or people.
  * @example
  * import Action from "@elioway/michael/Action.js"
  * import Thing from "@elioway/thing/Thing.js"
