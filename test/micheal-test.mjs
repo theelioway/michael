@@ -1,7 +1,7 @@
-import { should } from "chai"
+import chai from "chai"
 import { callMicheal, michael, pipeline } from "../michael.js"
 
-should()
+const should = chai.should()
 
 const delayAsync = async (thing, ms) =>
   await new Promise(resolve => setTimeout(() => resolve(thing), ms))
@@ -9,10 +9,11 @@ const delayPromise = (thing, ms) =>
   new Promise(resolve => setTimeout(() => resolve(thing), ms))
 
 describe("module | callMicheal", () => {
-  it("gets a Michael", () => {
-    callMicheal().should.eql({ potentialAction: "Action" })
+  it("gets a Michael", async () => {
+    let myMichael = await callMicheal()
+    myMichael.should.eql({ potentialAction: "Action" })
   })
-  it("gets a Michael and give argv to `thing`", () => {
+  it("gets a Michael and give argv to `thing`", async () => {
     const originalArgs = process.argv
     process.argv = [
       "/usr/bin/node",
@@ -22,7 +23,8 @@ describe("module | callMicheal", () => {
       "sameAs=Bears",
       "Action.error=Not Found",
     ]
-    callMicheal().should.eql({
+    let myMichael = await callMicheal()
+    myMichael.should.eql({
       identifier: "testCallMicheal",
       potentialAction: "MichealAction",
       sameAs: "Bears",

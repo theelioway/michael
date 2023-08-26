@@ -18,59 +18,54 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  *       { identifier: 5, sameAs: "odd" },
  *       { identifier: 6, sameAs: "odd" },
  *     ],
- *     numberOfItems: 6,
  *   },
  * }
- * const result1 = await ChooseAction({
+ * const thing1 = await ChooseAction({
  *   ChooseAction: { actionOption: "identifier:5" },
  *   Action: { object: engagedThing },
  * })
  * console.assert(
- *  result1.Action.result.identifier === 5
+ *  thing1.Action.result.identifier === 5
  * )
- * const result2 = await ChooseAction({
+ * const thing2 = await ChooseAction({
  *   ChooseAction: { actionOption: "sameAs:even" },
  *   Action: { object: engagedThing  },
  * })
  * console.assert(
- *  result2.Action.result.identifier === 1
+ *  thing2.Action.result.identifier === 1
  * )
  * // Three `things` match "sameAs:even"
- * const result3 = await FindAction({
+ * const thing3 = await FindAction({
  *   ChooseAction: { actionOption: "sameAs:odd" },
  *   Action: { object: engagedThing  },
  * })
  * console.assert(
- *  result3.Action.result.identifier === 4
+ *  thing3.Action.result.identifier === 4
  * )
  */
-export const ChooseAction = function ChooseAction(action) {
+export const ChooseAction = async function ChooseAction(action) {
   const mainEntityOfPage = "ChooseAction"
-  action = Action({ ...action, mainEntityOfPage })
+  action = await Action({ ...action, mainEntityOfPage })
   action.ChooseAction = action.ChooseAction || {}
   action.ChooseAction.actionOption = action.ChooseAction.actionOption || ""
   action.ChooseAction.actionOption = parseArgs(
     action.ChooseAction.actionOption,
     ":",
   )
-
-  let thing = ItemList(action.Action.object)
   let chosenThing = find(
-    thing.ItemList.itemListElement,
+    action.Action.object.ItemList.itemListElement,
     matches(action.ChooseAction.actionOption),
   )
   if (!chosenThing) {
-    action.Action.result = thing
     action.Action.error = `${JSON.stringify(
       action.ChooseAction.actionOption,
     )} not found in \`thing.ItemList.itemListElement\``
     action.Action.actionStatus = "FailedActionStatus"
-    return Message(action)
   } else {
     action.Action.result = chosenThing
     action.Action.actionStatus = "CompletedActionStatus"
-    return Message(action)
   }
+  return await Message(action)
 }
 
 export default ChooseAction

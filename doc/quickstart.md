@@ -27,7 +27,7 @@ import { merge } from "lodash-es"
  * Fields for "least" are `identifier`, `mainEntityOfPage` and `ItemList`
  * @params {Thing}
  * @returns {Thing} */
-const Thing = function (thing) {
+const Thing = asyncfunction (thing) {
   thing = thing || {}
   thing.ItemList = thing.ItemList || {}
   thing.ItemList.itemListElement = thing.ItemList.itemListElement || []
@@ -53,7 +53,7 @@ import { ItemList } from "@elioway/michael"
  * @returns {Thing}
  */
 export const WriteAction = async thing => {
-  thing = ItemList(thing)
+  thing = await ItemList(thing)
   thing.mainEntityOfPage = thing.mainEntityOfPage || "WriteAction"
   if (thing && !thing.url) {
     // Return an error message as a `thing`.

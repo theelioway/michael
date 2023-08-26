@@ -1,7 +1,7 @@
-import { should } from "chai"
+import chai from "chai"
 import { convertStringToType, parseArgs } from "../lib/parseArgs.js"
 
-should()
+const should = chai.should()
 
 describe("module | convertStringToType", () => {
   it("parses blank", () => {
@@ -38,11 +38,13 @@ describe("module | parseArgs", () => {
       "TestAction",
       "d=2023-10-11",
       "x=1",
+      "y=x",
       "--help",
       "--tip=true",
-      "y=x",
-      "z=",
+      "-t=1",
       "-f",
+      "z=",
+      "=z",
     ]).should.eql({ d: new Date(Date.parse("2023-10-11")), x: 1, y: "x" })
   })
 })

@@ -9,17 +9,8 @@ const should = chai.should()
 *
 * @usage
 * ============================================================================ *
-mochaSuite("POST /Thing", () => {
-  it("tests something requiring the app and mongoose servers", done => {
-    chai
-      .request(app)
-      .get("/Thing/20")
-      .end((err, res) => {
-        res.body.name.equals("Thing 20, bady")
-        done()
-      })
-  })
-})
+import Thing from "../Thing.js"
+ThingAcceptanceTest(Thing)
 * ============================================================================ *
 * @param {Function} Thing as an enpoint.
 * @param {String} testDescription for the describe wrapper which groups tests.
@@ -34,13 +25,13 @@ export const ThingAcceptanceTest = async Thing => {
     // after(async () => { })
     // afterEach(async () => { })
 
-    it.only("returns a `thing` from undefined input", async () => {
+    it("returns a `thing` from undefined input", async () => {
       let thing = await Thing()
       should.equal(thing.identifier, undefined)
       thing.mainEntityOfPage.should.be.eql(typeName)
       thing.ItemList.itemListElement.should.be.eql([])
     })
-    it.only(`returns the \`thing\` that was input`, async () => {
+    it(`returns the \`thing\` that was input`, async () => {
       let thing = await Thing({ identifier: "thing" })
       thing.identifier.should.be.eql("thing")
       thing.mainEntityOfPage.should.be.eql(typeName)

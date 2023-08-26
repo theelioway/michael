@@ -1,4 +1,4 @@
-import { reject, matches } from "lodash-es"
+import { cloneDeep, reject, matches } from "lodash-es"
 import Action from "../../../../Thing/Action.js"
 import ItemList from "../../../../Thing/Intangible/ItemList.js"
 import Message from "../../../../Thing/CreativeWork/Message.js"
@@ -30,16 +30,15 @@ import Message from "../../../../Thing/CreativeWork/Message.js"
  *   thing.Action.result.ItemList.itemListElement[1].identifier===6
  * )
  */
-export const RejectAction = function RejectAction(action) {
+export const RejectAction = async function RejectAction(action) {
   const mainEntityOfPage = "RejectAction"
-  action = Action({ ...action, mainEntityOfPage })
-  const thing = ItemList(action.Action.object)
-  thing.ItemList.itemListElement = reject(
-    thing.ItemList.itemListElement,
+  action = await Action({ ...action, mainEntityOfPage })
+  action.Action.result = cloneDeep(action.Action.object)
+  action.Action.result.ItemList.itemListElement = reject(
+    action.Action.object.ItemList.itemListElement,
     matches(action.Action.instrument),
   )
-  action.Action.result = ItemList({ mainEntityOfPage })
   action.Action.actionStatus = "CompletedActionStatus"
-  return Message(action)
+  return await Message(action)
 }
 export default RejectAction

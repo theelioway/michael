@@ -7,7 +7,7 @@ import Message from "../../Thing/CreativeWork/Message.js"
  * @example *
  * let CancelAction = require("@elioway/michael/Action/CancelAction.js")
  * let UpdateAction = require("@elioway/michael/Action/UpdateAction.js")
- * let engagedThing = { identifier: "my-thing" }
+ * let engagedThing = { identifier: "thing-0001" }
  *
  * const action1 = await UpdateAction({
  *   Action: {
@@ -16,25 +16,24 @@ import Message from "../../Thing/CreativeWork/Message.js"
  *   }
  * })
  * console.assert(action1.Action.actionStatus==="CompletedActionStatus")
- * console.assert(action1.Action.object.identifier==="my-thing")
+ * console.assert(action1.Action.object.identifier==="thing-0001")
  * console.assert(!action1.Action.object.url)
- * console.assert(action1.Action.result.identifier==="my-thing")
+ * console.assert(action1.Action.result.identifier==="thing-0001")
  * console.assert(action1.Action.result.url==="http://Action.theElioWay.com")
  *
  * let action2 = CancelAction(action1)
  * console.assert(action2.Action.actionStatus==="CompletedActionStatus")
- * console.assert(action2.Action.object.identifier==="my-thing")
+ * console.assert(action2.Action.object.identifier==="thing-0001")
  * console.assert(!action2.Action.object.url)
- * console.assert(action2.Action.result.identifier==="my-thing")
+ * console.assert(action2.Action.result.identifier==="thing-0001")
  * console.assert(!action2.Action.result.url)
  */
-export const CancelAction = function CancelAction(action) {
+export const CancelAction = async function CancelAction(action) {
   const mainEntityOfPage = "CancelAction"
-  action = Action({ ...action, mainEntityOfPage })
-  let thing = ItemList(action.Action.object)
+  action = await Action({ ...action, mainEntityOfPage })
   // Put the thing back.
-  action.Action.result = thing
+  action.Action.result = action.Action.object
   action.Action.actionStatus = "CompletedActionStatus"
-  return Message(action)
+  return await Message(action)
 }
 export default CancelAction

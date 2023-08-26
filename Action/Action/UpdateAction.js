@@ -7,29 +7,28 @@ import Message from "../../Thing/CreativeWork/Message.js"
  * The act of managing by changing/editing the state of the object.
  * @example
  * let UpdateAction = require("@elioway/michael/Action/UpdateAction.js")
- * let engagedThing = { identifier: "my-thing", name: "My new thing." }
+ * let engagedThing = { identifier: "thing-0001", name: "My new thing." }
  * const action = await UpdateAction({
  *   Action: {
  *     instrument: "url:http://Action.theElioWay.com",
  *     object: engagedThing
  *   }
  * })
- * console.assert(action.identifier==="my-thing")
+ * console.assert(action.identifier==="thing-0001")
  * console.assert(action.name==="My new thing.")
  * console.assert(action.Action.url==="http://Action.theElioWay.com")
  * console.assert(action.Action.actionStatus==="CompletedActionStatus")
  */
-export const UpdateAction = function UpdateAction(action) {
+export const UpdateAction = async function UpdateAction(action) {
   const mainEntityOfPage = "UpdateAction"
-  action = Action({ ...action, mainEntityOfPage })
-  let thing = ItemList(action.Action.object)
+  action = await Action({ ...action, mainEntityOfPage })
   action.Action.result = mergeDeep(
     {},
-    cloneDeep(thing),
+    cloneDeep(action.Action.object),
     action.Action.instrument,
   )
   action.Action.actionStatus = "CompletedActionStatus"
-  return Message(action)
+  return await Message(action)
 }
 
 export default UpdateAction

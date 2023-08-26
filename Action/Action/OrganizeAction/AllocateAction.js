@@ -28,16 +28,17 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  *     ]
  * )
  */
-export const AllocateAction = function AllocateAction(action) {
+export const AllocateAction = async function AllocateAction(action) {
   const mainEntityOfPage = "RejectAction"
-  action = Action({ ...action, mainEntityOfPage })
-  const thing = ItemList(action.Action.object)
-  thing.ItemList.itemListElement = map(thing.ItemList.itemListElement, thing =>
-    merge(thing, clone(action.Action.instrument)),
+  action = await Action({ ...action, mainEntityOfPage })
+  action.Action.result = cloneDeep(action.Action.object)
+  action.Action.result.ItemList.itemListElement = map(
+    action.Action.object.ItemList.itemListElement,
+    thing => merge(thing, clone(action.Action.instrument)),
   )
-  action.Action.result = ItemList({ mainEntityOfPage })
+  action.Action.result = await ItemList({ mainEntityOfPage })
   action.Action.actionStatus = "CompletedActionStatus"
-  return Message(action)
+  return await Message(action)
 }
 
 export default AllocateAction

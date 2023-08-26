@@ -8,44 +8,29 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  * Reads `action.Action.url` expected to be a JSON file.
  * @example
  * let UpdateAction = require("@elioway/michael/Action/UpdateAction.js")
- * echo '{ "identifier": "my-thing" }' > "myThing.json"
+ * echo '{ "identifier": "thing-0001" }' > "myThing.json"
  * const action = await ReadAction({
  *    url: "myThing.json",
  *    Action: { object: {} }
  * })
  * console.assert(action.url==="myThing.json")
  * console.assert(!action.identifier)
- * console.assert(action.Action.result.identifier === "my-thing")
+ * console.assert(action.Action.result.identifier === "thing-0001")
  * console.assert(!action.Action.result.url)
  * console.assert(!action.Action.result.Action)
  */
 export const ReadAction = async function ReadAction(action) {
   const mainEntityOfPage = "ReadAction"
-
-  action = Action({ ...action, mainEntityOfPage })
-  let thing = ItemList(action.Action.object)
-  if (!action.url) {
-    action.Action.result = thing
-    action.Action.actionStatus = "CompletedActionStatus"
-    return new Message({
-      ...action,
-      name: join([thing.name, mainEntityOfPage, "Action Failed"]).trim(),
-      Action: {
-        actionStatus: "FailedActionStatus",
-        error: "Missing `thing.url`",
-      },
-    })
+  action = await Action({ ...action, mainEntityOfPage })
+  let hasError = !action.url || (action.url && !action.url.endsWith("json"))
+  if (hasError) {
+    action.Action.error = "Missing `action.url`"
+    action.Action.actionStatus = "FailedActionStatus"
   } else {
     let fileData = await fs.readFile(action.url, "utf8")
-    action.Action.result = thing
+    action.Action.result = fileData
     action.Action.actionStatus = "CompletedActionStatus"
-    return new Message({
-      ...action,
-      Action: {
-        actionStatus: "CompletedActionStatus",
-        result: fileData,
-      },
-    })
   }
+  return new Message(action)
 }
 export default ReadAction

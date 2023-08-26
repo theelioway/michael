@@ -1,22 +1,11 @@
 /** Action: flesh out a default or a new Action endpoint which can be used to transform a given `thing` */
-import { join, set } from "lodash-es"
-import ItemList from "./Intangible/ItemList.js"
+import { isString, join, set } from "lodash-es"
 import { parseArgs } from "../lib/index.js"
+import ItemList from "./Intangible/ItemList.js"
+import Thing from "../Thing.js"
 
 /**
  * Prepares an `action` with the data needed to perform an action on the `thing`
- *
- * @param {Object_Thing} thing - The `thing` object. *
- * @mutates {Object_Thing} `thing`
- * @into {Object_Thing} `action.Action.object`  `action.Action.result`
- * @returns {Object_ActionThing} The new `action` object.
- * - {@link Object_ActionThing#Action.error} For failed actions, more information on the cause of the failure.
- * - {@link Object_ActionThing#Action.instrument} The object that helped the agent perform the action.
- * - {@link Object_ActionThing#Action.object} The object upon which the action is carried out, whose state is kept intact or changed.
- * - {@link Object_ActionThing#Action.target} Indicates a target EntryPoint for an Action.
- * - {@link Object_ActionThing#Action.result} The `thing` produced in the action.
- * - {@link Object_ActionThing#Action.target} Indicates a target EntryPoint for an Action.
- * @throws {Object_Message} `message.Action.error`
  * @example
  * let Action = require("@elioway/michael/Thing/Action.js")
  *
@@ -31,7 +20,7 @@ import { parseArgs } from "../lib/index.js"
  *
  *
  * const thing2 = await Action({
- *    Action: { object: { identifier: "my-thing" } }
+ *    Action: { object: { identifier: "thing-0001" } }
  * })
  * console.assert(!thing2.identifier)
  * console.assert(thing2.mainEntityOfPage==="Action")
@@ -39,43 +28,48 @@ import { parseArgs } from "../lib/index.js"
  * console.assert(thing2.Action.result.identifier==="thing")
  * console.assert(thing2.Action.target(thing2.Action.object)===thing2.Action.result)
  */
-export const Action = function Action(thing) {
+export const Action = async function Action(thing) {
   const mainEntityOfPage = "Action"
-  // "thingify" incoming thing
-  thing = ItemList(thing)
+  thing = await ItemList(thing)
+  thing.mainEntityOfPage = thing.mainEntityOfPage || mainEntityOfPage
   const default_action = object =>
     set(object, "Action.actionStatus", "CompletedActionStatus")
-  // "thingify" new action
-  let action = ItemList({ mainEntityOfPage })
   // default parameters of Action
-  action.Action = {}
+  thing.Action = thing.Action || {}
   // an `Object` to use for `whatever` by `target` function.
-  action.Action.instrument = thing.Action.instrument || ""
-  action.Action.instrument = parseArgs(action.Action.instrument.split(","), ":")
+  thing.Action.instrument = thing.Action.instrument || ""
+  if (isString(thing.Action.instrument)) {
+    thing.Action.instrument = parseArgs(thing.Action.instrument.split(","), ":")
+  }
   // The `thing` to use as the object of an action.
-  action.Action.object = thing
-  // The `result` (defaulting to the same "unactioned" `thing`).
-  action.Action.result = thing
+  thing.Action.object = await ItemList(thing.Action.object || (await Thing()))
+  // The `result` leave.
+  // thing.Action.result = {}
   // The `target` function for actioning a `thing`.
-  action.Action.target = thing.Action.target || default_action
+  thing.Action.target = thing.Action.target || default_action
   // The default `actionStatus`.
-  action.Action.actionStatus = "PotentialActionStatus"
+  thing.Action.actionStatus =
+    thing.Action.actionStatus || "PotentialActionStatus"
   // The least `action`.
   return new Object({
-    ...action,
+    ...thing,
     description: join(
       [
         mainEntityOfPage,
-        " [Action.instrument:",
-        JSON.stringify(action.Action.instrument),
+        " [instrument:",
+        JSON.stringify(thing.Action.instrument),
         "]",
       ],
       "",
-    )
-      .trim()
-      .replace("[Action.instrument:]", "")
-      .replace("[Action.instrument:{}]", ""),
-    name: join([thing.identifier, mainEntityOfPage, " Result(s)"], "").trim(),
+    ).trim(),
+    name: join(
+      [
+        thing.Action.object.identifier,
+        thing.Action.object.mainEntityOfPage,
+        mainEntityOfPage,
+      ],
+      " ",
+    ).trim(),
   })
 }
 

@@ -19,45 +19,44 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  *       { identifier: 5, sameAs: "odd" },
  *       { identifier: 6, sameAs: "even" },
  *     ],
- *     numberOfItems: 6,
  *   },
  * }
- * const result1 = await ChooseAction({
+ * const thing1 = await ChooseAction({
  *   SearchAction: { query: "identifier:4" },
  *   Action: { object: engagedThing },
  * })
  * console.assert(
- *   result1.Action.result.ItemList.itemListElement === [
+ *   thing1.Action.result.ItemList.itemListElement === [
  *     { identifier: 4, sameAs: "even" }
  *   ]
  * )
- * const result2 = await ChooseAction({
+ * const thing2 = await ChooseAction({
  *   SearchAction: { query: "sameAs:odd" },
  *   Action: { object: thing },
  * })
  * console.assert(
- *   result1.Action.result.ItemList.itemListElement === [
+ *   thing1.Action.result.ItemList.itemListElement === [
  *     { identifier: 1, sameAs: "odd" },
  *     { identifier: 3, sameAs: "odd" },
  *     { identifier: 5, sameAs: "odd" },
  *   ]
  * )
  */
-export const SearchAction = function SearchAction(action) {
+export const SearchAction = async function SearchAction(action) {
   const mainEntityOfPage = "SearchAction"
-  action = Action({ ...action, mainEntityOfPage })
-  let thing = ItemList(action.Action.object)
+  action = await Action({ ...action, mainEntityOfPage })
+  action.Action.result = cloneDeep(action.Action.object)
   action.SearchAction = action.SearchAction || {}
   action.SearchAction.query = action.SearchAction.query || ""
   action.SearchAction.query = parseArgs(action.Action.query, ":")
   action.Action.result.ItemList.itemListElement = filter(
-    thing.ItemList.itemListElement,
+    action.Action.object.ItemList.itemListElement,
     thing =>
       some(action.SearchAction.query, (value, key) =>
         isEqual(thing[key], value),
       ),
   )
   action.Action.actionStatus = "CompletedActionStatus"
-  return Message(action)
+  return await Message(action)
 }
 export default SearchAction

@@ -15,42 +15,28 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  */
 export const PhotographAction = async function PhotographAction(action) {
   const mainEntityOfPage = "PhotographAction"
-  action = Action({ ...action, mainEntityOfPage })
-  let thing = ItemList(action.Action.object)
+  action = await Action({ ...action, mainEntityOfPage })
   let hasError =
     !action.url || (action.url && !action.url.toLowerCase().endsWith("jpg"))
   if (hasError) {
-    action.Action.result = thing
-    action.Action.actionStatus = "CompletedActionStatus"
-    return Message({
-      ...action,
-      Action: {
-        actionStatus: "FailedActionStatus",
-        error: "Missing `action.url`",
-      },
-    })
+    action.Action.actionStatus = "FailedActionStatus"
+    action.Action.error = "Missing `action.url`"
   } else {
     let fileData = await fs.readFile(action.url)
     // Search for the Exif marker (0xFFE1) in `fileData`
     const exifMarkerIndex = fileData.indexOf(Buffer.from([0xff, 0xe1]))
     if (exifMarkerIndex === -1) {
-      return Message({
-        ...action,
-        name: join([thing.name, mainEntityOfPage, "Action Failed"]).trim(),
-        Action: {
-          actionStatus: "FailedActionStatus",
-          error: `Exif marker not found in the ${action.url}`,
-        },
-      })
+      action.Action.actionStatus = "FailedActionStatus"
+      action.Action.error = `Exif marker not found in the ${action.url}`
+    } else {
+      // Extract and parse the Exif header
+      const exifData = fileData.slice(
+        exifMarkerIndex + 4,
+        exifMarkerIndex + 2 + 4,
+      )
+      action.Action.actionStatus = "CompletedActionStatus"
+      action.Action.result = exifData
     }
-    // Extract and parse the Exif header
-    const exifData = fileData.slice(
-      exifMarkerIndex + 4,
-      exifMarkerIndex + 2 + 4,
-    )
-    action.Action.result = exifData
-    action.Action.actionStatus = "CompletedActionStatus"
-    return Message(action)
     // const byteOrder = exifData.toString('utf8', 0, 2);
     // // Determine endianness based on the byte order
     // const littleEndian = byteOrder === 'II';
@@ -62,5 +48,6 @@ export const PhotographAction = async function PhotographAction(action) {
     //   : exifData.readUInt16BE(tagOffset);
     // console.log(`ApertureValue: ${tagValue}`);
   }
+  return await Message(action)
 }
 export default PhotographAction

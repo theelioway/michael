@@ -1,29 +1,27 @@
-/**
- * `Thing`: to flesh out a default or null `thing`.
- * */
 import ItemList from "./Thing/Intangible/ItemList.js"
 
 /**
- * Returns the least `thing` allowed.
+ * The most generic type of item.
  *
  * @param {Object_Thing} thing - The `thing` object.
  * @mutates {Object_Thing} `thing` object
  * @into {Object_Thing} `thing` object
  * @returns {Object_Thing} The modified `thing` object.
  * @example
- * const result1 = await Thing()
- * console.assert(!result1.identifier)
- * console.assert(result1.mainEntityOfPage==="Thing")
- * console.assert(result1.ItemList.itemListElement)
+ * const thing1 = await Thing()
+ * console.assert(!thing1.identifier)
+ * console.assert(thing1.mainEntityOfPage==="Thing")
+ * console.assert(thing1.ItemList.itemListElement)
  *
- * const result2 = await Thing({ identifier: "myThing" })
- * console.assert(result2.identifier==="myThing")
- * console.assert(result2.mainEntityOfPage==="Thing")
- * console.assert(result2.ItemList.itemListElement)
+ * const thing2 = await Thing({ identifier: "thing-0001" })
+ * console.assert(thing2.identifier==="thing-0001")
+ * console.assert(thing2.mainEntityOfPage==="Thing")
+ * console.assert(thing2.ItemList.itemListElement)
  */
-export const Thing = function Thing(thing) {
-  thing = ItemList(thing)
-  thing.mainEntityOfPage = thing.mainEntityOfPage || "Thing"
+export const Thing = async function Thing(thing) {
+  const mainEntityOfPage = "Thing"
+  thing = await ItemList(thing)
+  thing.mainEntityOfPage = thing.mainEntityOfPage || mainEntityOfPage
   return thing
 }
 

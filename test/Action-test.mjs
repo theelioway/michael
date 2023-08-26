@@ -1,7 +1,20 @@
-// import { should } from "chai"
 import Action from "../Thing/Action.js"
-import ThingAcceptanceTest from "./ThingAcceptanceTest.js"
+import ActionAcceptanceTest from "../test-helpers/Thing/ActionAcceptanceTest.js"
 
-// should()
+ActionAcceptanceTest(Action)
 
-ThingAcceptanceTest(Action)
+// describe("module | Action", () => {
+//   it("blank Action.target", () => {
+// const targetFunc = function (thing) {
+//   set(thing || {}, "Action.actionStatus", "CompletedActionStatus")
+// }
+//     const actualThing = Action()
+//     actualThing.Action.target().should.eql(expectedTarget())
+//     actualThing.Action.target({ identifier: "test" }).should.eql(
+//       expectedTarget({ identifier: "test" }),
+//     )
+//     actualThing.Action.target({
+//       Action: { actionStatus: "test" },
+//     }).should.eql(expectedTarget({ Action: { actionStatus: "test" } }))
+//   })
+// })

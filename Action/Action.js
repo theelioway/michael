@@ -17,7 +17,7 @@ import { default as ActionThing } from "../Thing/Action.js"
  * *
  * const action2 = await Action({
  *   Action: {
- *     object: { identifier: "my-thing", name: "My test thing" },
+ *     object: { identifier: "thing-0001", name: "My test thing" },
  *     target: thing => new Object({
  *       ...thing,
  *       identifier: thing.identifier.toUpperCase()
@@ -27,7 +27,7 @@ import { default as ActionThing } from "../Thing/Action.js"
  * console.assert(!action2.identifier)
  * console.assert(!action2.name)
  * console.assert(action2.mainEntityOfPage==="Action")
- * console.assert(action2.Action.object.identifier==="my-thing")
+ * console.assert(action2.Action.object.identifier==="thing-0001")
  * console.assert(action2.Action.object.name==="My test thing")
  * console.assert(action2.Action.result.identifier==="MY-THING")
  * console.assert(action2.Action.result.name==="My test thing")
@@ -35,7 +35,7 @@ import { default as ActionThing } from "../Thing/Action.js"
  *   action2.Action.target(thing2.Action.object)==thing2.Action.result
  * )
  */
-export const Action = function Action(action) {
+export const Action = async function Action(action) {
   action = ActionThing(action)
   // Run the action
   if (isFunction(thing.Action.target)) {
@@ -43,8 +43,17 @@ export const Action = function Action(action) {
     action.Action.result = thing.Action.target(action.Action.object)
     // The default `actionStatus`.
     action.Action.actionStatus = "CompletedActionStatus"
+    action.name = join(
+      [
+        action.Action.object.identifier,
+        action.Action.object.mainEntityOfPage,
+        action.mainEntityOfPage,
+        "Result(s)",
+      ],
+      " ",
+    ).trim()
   }
-  return Message(action)
+  return await Message(action)
 }
 
 export default Action

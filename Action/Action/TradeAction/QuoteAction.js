@@ -7,7 +7,7 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  * Writes `action.Action.object` to a JSON file.
  * @example
  * let UpdateAction = require("@elioway/michael/Action/UpdateAction.js")
- * let engagedThing = { identifier: "my-thing", name: "My Name" }
+ * let engagedThing = { identifier: "thing-0001", name: "My Name" }
  * const result = await QuoteAction({
  *    url: "myThing.json",
  *    Action: { object: engagedThing }
@@ -15,13 +15,12 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  * console.log(`File written: ${result.url}`)
  */
 export const QuoteAction = fields =>
-  function QuoteAction(thing) {
+  async function QuoteAction(action) {
     const mainEntityOfPage = "QuoteAction"
-    action = Action({ ...action, mainEntityOfPage })
-    let thing = ItemList(action.Action.object)
-    action.Action.result = pick(thing, fields)
+    action = await Action({ ...action, mainEntityOfPage })
+    action.Action.result = pick(cloneDeep(action.Action.object), fields)
     action.Action.actionStatus = "CompletedActionStatus"
-    return Message(thing)
+    return await Message(action)
   }
 
 export default QuoteAction

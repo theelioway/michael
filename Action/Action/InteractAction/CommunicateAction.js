@@ -2,34 +2,32 @@ import Action from "../../../Thing/Action.js"
 import ItemList from "../../../Thing/Intangible/ItemList.js"
 import Message from "../../../Thing/CreativeWork/Message.js"
 
-const sendMailMock = action => Promise.resolve(Message({ ...action }))
+const sendMailMock = action => Promise.resolve(Message(action))
 
 /** `CommunicateAction` which requires  final acceptance.
  * @example
  * let UpdateAction = require("@elioway/michael/Action/UpdateAction.js")
- * const result1 = await Thing()
- * console.assert(!result1.identifier)
- * console.assert(result1.mainEntityOfPage==="Thing")
- * console.assert(result1.ItemList.itemListElement)
+ * const thing1 = await Thing()
+ * console.assert(!thing1.identifier)
+ * console.assert(thing1.mainEntityOfPage==="Thing")
+ * console.assert(thing1.ItemList.itemListElement)
  *
- * const result2 = await Thing({ identifier: "myThing" })
- * console.assert(result2.identifier==="myThing")
- * console.assert(result2.mainEntityOfPage==="Thing")
- * console.assert(result2.ItemList.itemListElement)
+ * const thing2 = await Thing({ identifier: "myThing" })
+ * console.assert(thing2.identifier==="myThing")
+ * console.assert(thing2.mainEntityOfPage==="Thing")
+ * console.assert(thing2.ItemList.itemListElement)
  */
 export const CommunicateAction = async function CommunicateAction(action) {
   const mainEntityOfPage = "CommunicateAction"
-  action = Action({ ...action, mainEntityOfPage })
-  let thing = ItemList(action.Action.object)
-  thing = ItemList(thing)
-  let message = Message(action)
+  action = await Action({ ...action, mainEntityOfPage })
+  let message = await Message(action)
   if (typeof action.Action.target === "function") {
     action.Action.result = action.Action.target(message)
   } else {
     action.Action.result = await sendMailMock(message)
   }
   action.Action.actionStatus = "CompletedActionStatus"
-  return Message(receipt)
+  return await Message(receipt)
 }
 
 export default CommunicateAction

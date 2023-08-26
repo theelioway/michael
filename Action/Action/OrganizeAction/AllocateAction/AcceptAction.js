@@ -3,46 +3,34 @@ import Action from "../../../../Thing/Action.js"
 import ItemList from "../../../../Thing/Intangible/ItemList.js"
 import Message from "../../../../Thing/CreativeWork/Message.js"
 
-/** The act of committing to/adopting an object.
+/** committing to/adopting an object.
  * @example
  * let AcceptAction = require("@elioway/michael/Action/OrganizeAction/AllocateAction/AcceptAction.js")
- * let engagedThing = {
- *   ItemList: {
- *     itemListElement: [
- *       { identifier: 1, sameAs: "odd" },
- *       { identifier: 2, sameAs: "even" },
- *       { identifier: 3, sameAs: "odd" },
- *       { identifier: 4, sameAs: "even" },
- *       { identifier: 5, sameAs: "odd" },
- *       { identifier: 6, sameAs: "even" }
- *     ]
- *   }
- * }
- * const action = await AcceptAction({
+ * let UpdateAction = require("@elioway/michael/Action/UpdateAction.js")
+ *
+ * let engagedThing = { name: "Blue Thing" }
+ * let action1 = await UpdateAction({
  *   Action: {
- *     object: engagedThing, instrument: "identifier:7,sameAs:odd"
+ *     object: engagedThing,
+ *     instrument: "name:'Red Thing'"
  *   }
  * })
  * console.assert(
- *   thing.Action.result.ItemList.itemListElement.length===7
+ *   action1.Action.object.name==='Blue Thing'
+ *   action1.Action.result.name==='Red Thing'
  * )
+ * let thing = AcceptAction(action1)
  * console.assert(
- *   thing.Action.result.ItemList.itemListElement[6].identifier===7
- * )
- * console.assert(
- *   thing.Action.result.ItemList.itemListElement[6].sameAs==="odd"
+ *   thing.name==='Red Thing'
  * )
  */
-export const RejectAction = function RejectAction(action) {
-  const mainEntityOfPage = "RejectAction"
-  action = Action({ ...action, mainEntityOfPage })
-  const thing = ItemList(action.Action.object)
-  thing.ItemList.itemListElement = reject(
-    thing.ItemList.itemListElement,
-    matches(action.Action.instrument),
-  )
-  action.Action.result = ItemList({ mainEntityOfPage })
-  action.Action.actionStatus = "CompletedActionStatus"
-  return Message(action)
+export const AcceptAction = async function AcceptAction(action) {
+  const mainEntityOfPage = "AcceptAction"
+  action = await Action({ ...action, mainEntityOfPage })
+  if (action.Action.actionStatus === "CompletedActionStatus") {
+    return action.Action.object
+  }
+  return await Message(action)
 }
-export default RejectAction
+
+export default AcceptAction

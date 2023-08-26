@@ -8,7 +8,7 @@
  * console.assert(thing1.ItemList.hasOwnProperty("itemListElement"))
  * console.assert(Array.isArray(thing1.ItemList.itemListElement))
  */
-export const ItemList = function ItemList(thing) {
+export const ItemList = async function ItemList(thing) {
   thing = thing || {}
   thing.ItemList = thing.ItemList || {}
   thing.ItemList.itemListElement = thing.ItemList.itemListElement || []

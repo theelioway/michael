@@ -13,26 +13,19 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  */
 export const WriteAction = async action => {
   const mainEntityOfPage = "WriteAction"
-  thing = ItemList(action.Action.object)
-  let action = Action(thing)
-  if (thing && !thing.url) {
-    return Message({
-      ...action,
-      Action: {
-        error: "Missing `thing.url`",
-        actionStatus: "FailedActionStatus",
-        object: thing,
-      },
-    })
+  action = await Action({ ...action, mainEntityOfPage })
+  if (action && !action.url) {
+    action.Action.actionStatus = "FailedActionStatus"
+    action.Action.error = "Missing `thing.url`"
   } else {
-    thing = await fs.writeFile(
-      thing.url,
-      JSON.stringify(thing, null, 2),
+    await fs.writeFile(
+      action.url,
+      JSON.stringify(action.Action.object, null, 2),
       "utf8",
     )
-    action.Action.result = thing
+    action.Action.result = JSON.stringify(action.Action.object)
     action.Action.actionStatus = "CompletedActionStatus"
-    return action
   }
+  return await Message(action)
 }
 export default WriteAction

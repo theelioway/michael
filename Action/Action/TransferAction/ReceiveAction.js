@@ -12,19 +12,21 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  * const results = await ReceiveAction({ Action: { object: thing } })
  * console.assert(results.Action.result.name === "myThing")
  */
-export const ReceiveAction = function ReceiveAction(action) {
+export const ReceiveAction = async function ReceiveAction(action) {
   const mainEntityOfPage = "ReceiveAction"
-  action = Action({ ...action, mainEntityOfPage })
+  action = awaitAction({ ...action, mainEntityOfPage })
   action.ReceiveAction = action.ReceiveAction || {}
   action.ReceiveAction.deliveryMethod =
     action.ReceiveAction.deliveryMethod || ""
   action.ReceiveAction.sender = action.ReceiveAction.sender || ""
   if (action.ReceiveAction.deliveryMethod === "json") {
-    action.Action.result = ItemList(JSON.parse(action.Action.object || "{}"))
+    action.Action.result = await ItemList(
+      JSON.parse(action.Action.object || "{}"),
+    )
   }
-  action.Action.result = ItemList({ mainEntityOfPage })
+  action.Action.result = await ItemList({ mainEntityOfPage })
   action.Action.actionStatus = "CompletedActionStatus"
-  return Message(action)
+  return await Message(action)
 }
 
 export default ReceiveAction

@@ -1,24 +1,19 @@
-import Thing from "../Thing.js"
+import ItemList from "./Intangible/ItemList.js"
 
-/**
- * Returns the least CreativeWork `thing` allowed.
+/**  The most generic kind of creative work.
  * @example
- * let Action = require("@elioway/michael/Thing/CreativeWork.js")
- * const result1 = await CreativeWork()
- * console.assert(!result1.identifier)
- * console.assert(result1.mainEntityOfPage==="CreativeWork")
- * console.assert(result1.ItemList.itemListElement)
- *
- * const result2 = await Thing({ identifier: "my-thing" })
- * console.assert(result2.identifier==="my-thing")
- * console.assert(result2.mainEntityOfPage==="CreativeWork")
- * console.assert(result2.ItemList.itemListElement)
+ * import CreativeWork from "@elioway/michael/CreativeWork.js"
+ * const thing = await CreativeWork()
+ * console.assert(!thing.identifier)
+ * console.assert(thing.mainEntityOfPage==="CreativeWork")
+ * console.assert(isObject(thing.CreativeWork))
  */
-export const CreativeWork = function CreativeWork(thing) {
+export const CreativeWork = async function CreativeWork(thing) {
   const mainEntityOfPage = "CreativeWork"
-  thing = Thing({ mainEntityOfPage, ...thing })
+  thing = await ItemList(thing)
+  thing.mainEntityOfPage = thing.mainEntityOfPage || mainEntityOfPage
   thing.CreativeWork = thing.CreativeWork || {}
-  return new Object(thing)
+  return thing
 }
 
-export default CreativeWork
+export default Message

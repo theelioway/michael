@@ -15,14 +15,15 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  * console.log(`File written: ${result.url}`)
  */
 
-export const ViewAction = function ViewAction(action) {
+export const ViewAction = async function ViewAction(action) {
   const mainEntityOfPage = "ViewAction"
-  action = Action({ ...action, mainEntityOfPage })
-  let thing = ItemList(action.Action.object)
-  action.Action.result = thing.ItemList.itemListElement.map(
-    ({ identifier }) => identifier,
-  )
+  action = await Action({ ...action, mainEntityOfPage })
+  action.Action.result = cloneDeep(action.Action.object)
+  action.Action.result.ItemList.itemListElement =
+    thing.Action.object.ItemList.itemListElement.map(
+      ({ identifier }) => identifier,
+    )
   action.Action.actionStatus = "CompletedActionStatus"
-  return Message(action)
+  return await Message(action)
 }
 export default ViewAction

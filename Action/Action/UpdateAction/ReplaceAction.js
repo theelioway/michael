@@ -17,34 +17,32 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  *       { identifier: 5, sameAs: "odd" },
  *       { identifier: 6, sameAs: "even" },
  *     ],
- *     numberOfItems: 6,
  *   },
  * }
- * const result1 = await ReplaceAction({
+ * const thing1 = await ReplaceAction({
  *   SearchAction: { query: "identifier:4" },
  *   Action: { object: engagedThing },
  * })
  * console.assert(
- *   result1.Action.result.ItemList.itemListElement === [
+ *   thing1.Action.result.ItemList.itemListElement === [
  *     { identifier: 4, sameAs: "even" }
  *   ]
  * )
- * const result2 = await ReplaceAction({
+ * const thing2 = await ReplaceAction({
  *   SearchAction: { query: "sameAs:odd" },
  *   Action: { object: thing },
  * })
  * console.assert(
- *   result1.Action.result.ItemList.itemListElement === [
+ *   thing1.Action.result.ItemList.itemListElement === [
  *     { identifier: 1, sameAs: "odd" },
  *     { identifier: 3, sameAs: "odd" },
  *     { identifier: 5, sameAs: "odd" },
  *   ]
  * )
  */
-export const ReplaceAction = function ReplaceAction(action) {
+export const ReplaceAction = async function ReplaceAction(action) {
   const mainEntityOfPage = "ReplaceAction"
-  action = Action({ ...action, mainEntityOfPage })
-  let thing = ItemList(action.Action.object)
+  action = await Action({ ...action, mainEntityOfPage })
   // A sub property of object. The object that is being replaced.
   action.ReplaceAction.replacee = action.ReplaceAction.replacee || ""
   action.ReplaceAction.replacee = parseArgs(
@@ -61,7 +59,7 @@ export const ReplaceAction = function ReplaceAction(action) {
   //     thing.ItemList.itemListElement,
   //     thing =>
   //   )
-  action.Action.result = ItemList({ mainEntityOfPage })
+  action.Action.result = await ItemList({ mainEntityOfPage })
   action.Action.actionStatus = "CompletedActionStatus"
-  return Message(action)
+  return await Message(action)
 }

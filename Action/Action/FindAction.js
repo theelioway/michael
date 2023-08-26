@@ -18,42 +18,41 @@ import Message from "../../Thing/CreativeWork/Message.js"
  *       { identifier: 5, sameAs: "odd" },
  *       { identifier: 6, sameAs: "even" },
  *     ],
- *     numberOfItems: 6,
  *   },
  * }
  * // No `things` match "identifier:2,sameAs:odd"
- * const result1 = await FindAction({
+ * const thing1 = await FindAction({
  *   Action: { object: engagedThing, instrument: "identifier:2,sameAs:odd"  },
  * })
  * console.assert(
- *  result1.Action.result.ItemList.itemListElement.length===0
+ *  thing1.Action.result.ItemList.itemListElement.length===0
  * )
  *
  * // One `thing` matches "identifier:2,sameAs:even"
- * const result2 = await FindAction({
+ * const thing2 = await FindAction({
  *   Action: { object: engagedThing, instrument: "identifier:2,sameAs:even"  },
  * })
  * console.assert(
- *   result2.Action.result.ItemList.itemListElement.length === 1
+ *   thing2.Action.result.ItemList.itemListElement.length === 1
  * )
  *
  * // Three `things` match "sameAs:even"
- * const result3 = await FindAction({
+ * const thing3 = await FindAction({
  *   Action: { object: engagedThing, instrument: "sameAs:even"  },
  * })
  * console.assert(
- *   result3.Action.result.ItemList.itemListElement.length === 3
+ *   thing3.Action.result.ItemList.itemListElement.length === 3
  * )
  */
-export const FindAction = function FindAction(action) {
+export const FindAction = async function FindAction(action) {
   const mainEntityOfPage = "FindAction"
-  action = Action({ ...action, mainEntityOfPage })
-  let thing = ItemList(action.Action.object)
+  action = await Action({ ...action, mainEntityOfPage })
+  action.Action.result = cloneDeep(action.Action.object)
   action.Action.result.ItemList.itemListElement = filter(
-    thing.ItemList.itemListElement,
+    action.Action.object.ItemList.itemListElement,
     matches(action.Action.instrument),
   )
   action.Action.actionStatus = "CompletedActionStatus"
-  return Message(action)
+  return await Message(action)
 }
 export default FindAction
