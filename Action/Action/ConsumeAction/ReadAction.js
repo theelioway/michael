@@ -31,6 +31,6 @@ export const ReadAction = async function ReadAction(action) {
     action.Action.result = fileData
     action.Action.actionStatus = "CompletedActionStatus"
   }
-  return new Message(action)
+  return await Message(action)
 }
 export default ReadAction

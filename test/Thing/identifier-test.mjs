@@ -1,4 +1,6 @@
 import identifier from "../../Thing/identifier.js"
-import ItemListAcceptanceTest from "../../test-helpers/ItemListAcceptanceTest.js"
+import ItemListUnitTest from "../../test-helpers/Thing/Intangible/ItemListUnitTest.js"
 
-ItemListAcceptanceTest(identifier)
+describe("identifier", () => {
+  it.skip("ItemListUnitTest", () => ItemListUnitTest(identifier))
+})

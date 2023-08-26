@@ -1,4 +1,3 @@
-import { set } from "lodash-es"
 import chai from "chai"
 
 const should = chai.should()
@@ -10,23 +9,16 @@ const should = chai.should()
 * @usage
 * ============================================================================ *
 import Action from "../Thing/Action.js"
-import ActionAcceptanceTest from "../test-helpers/Thing/ActionAcceptanceTest.js"
-ActionAcceptanceTest(Action)
-})
+import ActionUnitTest from "../test-helpers/Thing/ActionUnitTest.js"
+ActionUnitTest(Action)
 * ============================================================================ *
 * @param {Function} Thing as an enpoint.
 * @param {String} testDescription for the describe wrapper which groups tests.
 * @param {Function} testsCallBack being the context "inside" which tests run.
 */
-export const ThingAcceptanceTest = async Action => {
+export const ActionUnitTest = async Action => {
   let typeName = Action.name
-  describe(`${typeName} Acceptance Test`, () => {
-    // const Action = (thing) => set(thing, "Action.actionStatus", "ActiveActionStatus")
-    // before(async () => {})
-    // beforeEach(async () => {})
-    // after(async () => { })
-    // afterEach(async () => { })
-
+  describe(`${typeName} Unit Test`, () => {
     it("returns a `thing` from undefined input", async () => {
       let action = await Action()
       should.equal(action.identifier, undefined)
@@ -72,7 +64,7 @@ export const ThingAcceptanceTest = async Action => {
       })
       // Input becomes `object` `thing`.
       action.name.should.be.eql("thing-0001 Thing Action")
-      action.description.should.be.eql("Action [instrument:{}]")
+      action.description.should.be.eql("Action [instrument:{}] supported")
     })
 
     it("pipes default Action.target", async () => {
@@ -88,28 +80,23 @@ export const ThingAcceptanceTest = async Action => {
       const actualThing = await Action()
       // Can't test for equality against functions.
       delete actualThing.Action.target
-      actualThing.should.eql({
-        name: "Thing Action",
-        description: "Action [instrument:{}]",
-        mainEntityOfPage: typeName,
-        Action: {
-          actionStatus: "PotentialActionStatus",
-          instrument: {},
-          object: {
-            ItemList: {
-              itemListElement: [],
-            },
-            mainEntityOfPage: "Thing",
-          },
-        },
+      actualThing.name.should.eql("Thing Action")
+      actualThing.description.should.eql(
+        "Action [instrument:{}] supported",
+      )
+      actualThing.mainEntityOfPage.should.eql(typeName)
+      actualThing.Action.should.eql({
+        actionStatus: "PotentialActionStatus",
+        instrument: {},
+      })
+      actualThing.object.should.eql({
+        mainEntityOfPage: "Thing",
         ItemList: {
           itemListElement: [],
         },
       })
     })
-
-    // testsCallBack()
   })
 }
 
-export default ThingAcceptanceTest
+export default ActionUnitTest

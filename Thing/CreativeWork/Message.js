@@ -25,20 +25,18 @@ const ACTIONSTATUSMESSAGE = {
  */
 export const Message = async function Message(thing) {
   const mainEntityOfPage = "Message"
-  thing = await CreativeWork({ ...thing, mainEntityOfPage })
+  thing = await CreativeWork({ mainEntityOfPage, ...thing })
   let message = mainEntityOfPage
   thing.Message = thing.Message || {}
   thing.Message.dateSent = new Date(Date.now()).toISOString()
   if (thing.Action) {
-    message = ACTIONSTATUSMESSAGE[action.Action.object]
-    thing.CreativeWork.about = action.Action.object
+    message = ACTIONSTATUSMESSAGE[thing.Action.actionStatus]
+    thing.CreativeWork.about = thing.Action.object
     thing.CreativeWork.abstract = message
-    thing.CreativeWork.sender = action
   }
   return new Object({
     ...thing,
     description: join([thing.description, message], " ").trim(),
-    name: join([thing.name, message], " ").trim(),
   })
 }
 

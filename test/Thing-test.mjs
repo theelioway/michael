@@ -1,4 +1,8 @@
 import Thing from "../Thing.js"
-import ThingAcceptanceTest from "../test-helpers/ThingAcceptanceTest.js"
+import ThingUnitTest from "../test-helpers/ThingUnitTest.js"
 
-ThingAcceptanceTest(Thing)
+describe("Thing", () => {
+  it("ThingUnitTest", () => {
+    ThingUnitTest(Thing)
+  })
+})

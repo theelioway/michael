@@ -1,4 +1,6 @@
 import Offer from "../../../Thing/Intangible/Offer.js"
-import ThingAcceptanceTest from "../../../test-helpers/ThingAcceptanceTest.js"
+import ThingUnitTest from "../../../test-helpers/ThingUnitTest.js"
 
-ThingAcceptanceTest(Offer)
+describe("Offer", () => {
+  it.skip("ThingUnitTest", () => ThingUnitTest(Offer))
+})

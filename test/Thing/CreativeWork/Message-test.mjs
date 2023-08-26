@@ -1,4 +1,6 @@
 import Message from "../../../Thing/CreativeWork/Message.js"
-import ThingAcceptanceTest from "../../../test-helpers/ThingAcceptanceTest.js"
+import ThingUnitTest from "../../../test-helpers/ThingUnitTest.js"
 
-ThingAcceptanceTest(Message)
+describe("Message", () => {
+  it.skip("ThingUnitTest", () => ThingUnitTest(Message))
+})

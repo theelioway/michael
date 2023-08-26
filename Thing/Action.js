@@ -3,6 +3,13 @@ import { parseArgs } from "../lib/index.js"
 import ItemList from "./Intangible/ItemList.js"
 import Thing from "../Thing.js"
 
+const ACTIONSTATUSMESSAGE = {
+  ActiveActionStatus: "in-progress",
+  CompletedActionStatus: "already taken place",
+  FailedActionStatus: "failed to complete",
+  PotentialActionStatus: "supported",
+}
+
 /**
  * An action performed by a direct agent and indirect participants upon
  * a direct object.
@@ -49,6 +56,8 @@ export const Action = async function Action(thing) {
   // The default `actionStatus`.
   thing.Action.actionStatus =
     thing.Action.actionStatus || "PotentialActionStatus"
+
+  let message = ACTIONSTATUSMESSAGE[thing.Action.actionStatus]
   // The least `action`.
   return new Object({
     ...thing,
@@ -57,7 +66,8 @@ export const Action = async function Action(thing) {
         mainEntityOfPage,
         " [instrument:",
         JSON.stringify(thing.Action.instrument),
-        "]",
+        "] ",
+        message
       ],
       "",
     ).trim(),

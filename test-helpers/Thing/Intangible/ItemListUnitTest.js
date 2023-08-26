@@ -1,4 +1,3 @@
-import { set } from "lodash-es"
 import chai from "chai"
 
 const should = chai.should()
@@ -9,16 +8,17 @@ const should = chai.should()
 *
 * @usage
 * ============================================================================ *
-import Thing from "../Thing.js"
-ItemListAcceptanceTest(Thing)
+import Person from "../Thing/Person.js"
+import ItemListUnitTest from "../test-helpers/Intangible/ItemListUnitTest.js"
+ItemListUnitTest(Person)
 * ============================================================================ *
 * @param {Function} Thing as an endpoint.
 * @param {String} testDescription for the describe wrapper which groups tests.
 * @param {Function} testsCallBack being the context "inside" which tests run.
 */
-export const ItemListAcceptanceTest = async ItemList => {
+export const ItemListUnitTest = async ItemList => {
   let typeName = ItemList.name
-  describe(`${typeName} Acceptance Test`, () => {
+  describe(`${typeName} Unit Test`, () => {
     it("returns `ItemList` for undefined `thing`", async () => {
       let thing = await ItemList()
       thing.ItemList.itemListElement.should.be.eql([])
@@ -43,9 +43,7 @@ export const ItemListAcceptanceTest = async ItemList => {
         { identifier: "0002" },
       ])
     })
-
-    // testsCallBack()
   })
 }
 
-export default ItemListAcceptanceTest
+export default ItemListUnitTest

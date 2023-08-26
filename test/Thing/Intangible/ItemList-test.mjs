@@ -1,4 +1,6 @@
 import ItemList from "../../../Thing/Intangible/ItemList.js"
-import ItemListAcceptanceTest from "../../../test-helpers/ItemListAcceptanceTest.js"
+import ItemListUnitTest from "../../../test-helpers/Thing/Intangible/ItemListUnitTest.js"
 
-ItemListAcceptanceTest(ItemList)
+describe("ItemList", () => {
+  it("ItemListUnitTest", () => ItemListUnitTest(ItemList))
+})

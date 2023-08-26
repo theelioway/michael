@@ -1,10 +1,14 @@
 import Action from "../../Thing/Action.js"
-import ActionAcceptanceTest from "../../test-helpers/Thing/ActionAcceptanceTest.js"
+import ThingUnitTest from "../../test-helpers/ThingUnitTest.js"
+import ActionUnitTest from "../../test-helpers/Thing/ActionUnitTest.js"
 
-ActionAcceptanceTest(Action)
+describe("Action Thing", () => {
+  it("ThingUnitTest", () => ThingUnitTest(Action))
+  it("ActionUnitTest", () => ActionUnitTest(Action))
+})
 
 // describe("module | Action", () => {
-//   it("blank Action.target", () => {
+//   it.skip("blank Action.target", () => {
 // const targetFunc = function (thing) {
 //   set(thing || {}, "Action.actionStatus", "CompletedActionStatus")
 // }

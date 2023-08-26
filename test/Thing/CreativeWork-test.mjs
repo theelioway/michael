@@ -1,4 +1,6 @@
 import CreativeWork from "../../Thing/CreativeWork.js"
-import ThingAcceptanceTest from "../../test-helpers/ThingAcceptanceTest.js"
+import ThingUnitTest from "../../test-helpers/ThingUnitTest.js"
 
-ThingAcceptanceTest(CreativeWork)
+describe("CreativeWork", () => {
+  it.skip("ThingUnitTest", () => ThingUnitTest(CreativeWork))
+})

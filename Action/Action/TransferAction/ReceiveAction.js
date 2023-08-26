@@ -14,7 +14,7 @@ import Message from "../../../Thing/CreativeWork/Message.js"
  */
 export const ReceiveAction = async function ReceiveAction(action) {
   const mainEntityOfPage = "ReceiveAction"
-  action = awaitAction({ ...action, mainEntityOfPage })
+  action = await Action({ ...action, mainEntityOfPage })
   action.ReceiveAction = action.ReceiveAction || {}
   action.ReceiveAction.deliveryMethod =
     action.ReceiveAction.deliveryMethod || ""

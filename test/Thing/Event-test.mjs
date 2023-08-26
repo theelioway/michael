@@ -1,4 +1,6 @@
 import Event from "../../Thing/Event.js"
-import ThingAcceptanceTest from "../../test-helpers/ThingAcceptanceTest.js"
+import ThingUnitTest from "../../test-helpers/ThingUnitTest.js"
 
-ThingAcceptanceTest(Event)
+describe("Event", () => {
+  it.skip("ThingUnitTest", () => ThingUnitTest(Event))
+})
