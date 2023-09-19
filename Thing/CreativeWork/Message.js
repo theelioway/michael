@@ -34,10 +34,7 @@ export const Message = async function Message(thing) {
     thing.CreativeWork.about = thing.Action.object
     thing.CreativeWork.abstract = message
   }
-  return new Object({
-    ...thing,
-    description: join([thing.description, message], " ").trim(),
-  })
+  return thing
 }
 
 export default Message

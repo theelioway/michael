@@ -1,6 +1,5 @@
-import { mergeDeep, cloneDeep } from "lodash-es"
+import { merge, cloneDeep } from "lodash-es"
 import Action from "../../Thing/Action.js"
-import ItemList from "../../Thing/Intangible/ItemList.js"
 import Message from "../../Thing/CreativeWork/Message.js"
 
 /**
@@ -22,7 +21,7 @@ import Message from "../../Thing/CreativeWork/Message.js"
 export const UpdateAction = async function UpdateAction(action) {
   const mainEntityOfPage = "UpdateAction"
   action = await Action({ ...action, mainEntityOfPage })
-  action.Action.result = mergeDeep(
+  action.Action.result = merge(
     {},
     cloneDeep(action.Action.object),
     action.Action.instrument,

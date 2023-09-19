@@ -1,4 +1,4 @@
-import { isString, join, set } from "lodash-es"
+import { cloneDeep, isString, join, set } from "lodash-es"
 import { parseArgs } from "../lib/index.js"
 import ItemList from "./Intangible/ItemList.js"
 import Thing from "../Thing.js"
@@ -38,8 +38,7 @@ export const Action = async function Action(thing) {
   const mainEntityOfPage = "Action"
   thing = await ItemList(thing)
   thing.mainEntityOfPage = thing.mainEntityOfPage || mainEntityOfPage
-  const default_action = object =>
-    set(object, "Action.actionStatus", "CompletedActionStatus")
+  const default_action = object => cloneDeep(object)
   // default parameters of Action
   thing.Action = thing.Action || {}
   // an `Object` to use for `whatever` by `target` function.
@@ -63,11 +62,10 @@ export const Action = async function Action(thing) {
     ...thing,
     description: join(
       [
-        mainEntityOfPage,
+        thing.mainEntityOfPage,
         " [instrument:",
         JSON.stringify(thing.Action.instrument),
         "] ",
-        message
       ],
       "",
     ).trim(),
@@ -75,7 +73,7 @@ export const Action = async function Action(thing) {
       [
         thing.Action.object.identifier,
         thing.Action.object.mainEntityOfPage,
-        mainEntityOfPage,
+        thing.mainEntityOfPage,
       ],
       " ",
     ).trim(),

@@ -48,7 +48,7 @@ export const SearchAction = async function SearchAction(action) {
   action.Action.result = cloneDeep(action.Action.object)
   action.SearchAction = action.SearchAction || {}
   action.SearchAction.query = action.SearchAction.query || ""
-  action.SearchAction.query = parseArgs(action.Action.query, ":")
+  action.SearchAction.query = parseArgs(action.Action.query.split(","), ":")
   action.Action.result.ItemList.itemListElement = filter(
     action.Action.object.ItemList.itemListElement,
     thing =>

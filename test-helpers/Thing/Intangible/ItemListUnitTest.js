@@ -21,11 +21,11 @@ export const ItemListUnitTest = async ItemList => {
   describe(`${typeName} Unit Test`, () => {
     it("returns `ItemList` for undefined `thing`", async () => {
       let thing = await ItemList()
-      thing.ItemList.itemListElement.should.be.eql([])
+      thing.ItemList.itemListElement.should.eql([])
     })
     it("returns `ItemList` for defined `thing`", async () => {
       let thing = await ItemList({ identifier: "thing" })
-      thing.ItemList.itemListElement.should.be.eql([])
+      thing.ItemList.itemListElement.should.eql([])
     })
     it("returns `ItemList` undisturbed", async () => {
       let thing = await ItemList({
@@ -37,7 +37,7 @@ export const ItemListUnitTest = async ItemList => {
           ],
         },
       })
-      thing.ItemList.itemListElement.should.be.eql([
+      thing.ItemList.itemListElement.should.eql([
         { identifier: "0001" },
         { identifier: "0002" },
         { identifier: "0002" },

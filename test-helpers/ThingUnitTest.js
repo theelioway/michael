@@ -22,14 +22,14 @@ export const ThingUnitTest = async Thing => {
     it("returns a `thing` from undefined input", async () => {
       let thing = await Thing()
       should.equal(thing.identifier, undefined)
-      thing.mainEntityOfPage.should.be.eql(typeName)
-      thing.ItemList.itemListElement.should.be.eql([])
+      thing.mainEntityOfPage.should.eql(typeName)
+      thing.ItemList.itemListElement.should.eql([])
     })
     it(`returns the \`thing\` that was input`, async () => {
       let thing = await Thing({ identifier: "thing" })
-      thing.identifier.should.be.eql("thing")
-      thing.mainEntityOfPage.should.be.eql(typeName)
-      thing.ItemList.itemListElement.should.be.eql([])
+      thing.identifier.should.eql("thing")
+      thing.mainEntityOfPage.should.eql(typeName)
+      thing.ItemList.itemListElement.should.eql([])
     })
   })
 }

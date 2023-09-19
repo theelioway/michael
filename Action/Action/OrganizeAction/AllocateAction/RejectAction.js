@@ -3,7 +3,7 @@ import Action from "../../../../Thing/Action.js"
 import ItemList from "../../../../Thing/Intangible/ItemList.js"
 import Message from "../../../../Thing/CreativeWork/Message.js"
 
-/** The act of rejecting a `thing` in the `thing`'s list..
+/** The act of rejecting to/adopting an object.
  * @example
  * let RejectAction = require("@elioway/michael/Action/OrganizeAction/AllocateAction/RejectAction.js")
  * let engagedThing = {
@@ -34,10 +34,13 @@ export const RejectAction = async function RejectAction(action) {
   const mainEntityOfPage = "RejectAction"
   action = await Action({ ...action, mainEntityOfPage })
   action.Action.result = cloneDeep(action.Action.object)
-  action.Action.result.ItemList.itemListElement = reject(
-    action.Action.object.ItemList.itemListElement,
-    matches(action.Action.instrument),
-  )
+  let thing = ItemList(action.Action.instrument)
+  // Remove the `object` from the list.
+  action.Action.result.ItemList.itemListElement =
+    action.Action.result.ItemList.itemListElement.filter(
+      obj => obj.identifier !== thing.identifier,
+    )
+
   action.Action.actionStatus = "CompletedActionStatus"
   return await Message(action)
 }

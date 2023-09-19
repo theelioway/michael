@@ -3,7 +3,7 @@ import Action from "../../../../Thing/Action.js"
 import ItemList from "../../../../Thing/Intangible/ItemList.js"
 import Message from "../../../../Thing/CreativeWork/Message.js"
 
-/** committing to/adopting an object.
+/** The act of committing to/adopting an object.
  * @example
  * let AcceptAction = require("@elioway/michael/Action/OrganizeAction/AllocateAction/AcceptAction.js")
  * let UpdateAction = require("@elioway/michael/Action/UpdateAction.js")
@@ -27,9 +27,17 @@ import Message from "../../../../Thing/CreativeWork/Message.js"
 export const AcceptAction = async function AcceptAction(action) {
   const mainEntityOfPage = "AcceptAction"
   action = await Action({ ...action, mainEntityOfPage })
-  if (action.Action.actionStatus === "CompletedActionStatus") {
-    return action.Action.object
+  action.Action.result = cloneDeep(action.Action.object)
+  let thing = ItemList(action.Action.instrument)
+  // Add the `object` from the list.
+  if (
+    !action.Action.result.ItemList.itemListElement
+      .map(t => t.identifier)
+      .includes(thing.identifier)
+  ) {
+    action.Action.result.ItemList.itemListElement.push(thing)
   }
+  action.Action.actionStatus === "CompletedActionStatus"
   return await Message(action)
 }
 

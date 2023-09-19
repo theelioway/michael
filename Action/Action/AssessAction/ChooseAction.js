@@ -1,70 +1,52 @@
-import { find, matches } from "lodash-es"
-import { parseArgs } from "../../../lib/parseArgs.js"
+import { isObject, isArray } from "lodash-es"
 import Action from "../../../Thing/Action.js"
 import ItemList from "../../../Thing/Intangible/ItemList.js"
 import Message from "../../../Thing/CreativeWork/Message.js"
 
+const CLEANABLE = [
+  "",
+  "0",
+  0,
+  0.0,
+  new Date(0).toISOString().slice(0, 10),
+  new Date(0).toISOString().slice(11),
+  new Date(0).toISOString(),
+]
+
 /**
- * The act of expressing a preference from a set of options or a large or unbounded set of choices/options.
+ * The act of expressing a preference [`Action.instrument`] from a set of 
+ * options [`Action.object`] or a large or unbounded set of choices/options. 
  * @example
- * let ChooseAction = require("@elioway/michael/Action/AssessAction/ChooseAction.js")
- * let engagedThing = {
- *   ItemList: {
- *     itemListElement: [
- *       { identifier: 1, sameAs: "even" },
- *       { identifier: 2, sameAs: "even" },
- *       { identifier: 3, sameAs: "even" },
- *       { identifier: 4, sameAs: "odd" },
- *       { identifier: 5, sameAs: "odd" },
- *       { identifier: 6, sameAs: "odd" },
- *     ],
- *   },
+ * let ChooseAction = require("@elioway/michael/AssessAction/ChooseAction.js") 
+ * let engagedThing = { 
+ *          identifier: "thing-0001", 
+ *          sameAs: "", 
+ *          QuantitativeValue: { value: 0 } 
  * }
- * const thing1 = await ChooseAction({
- *   ChooseAction: { actionOption: "identifier:5" },
- *   Action: { object: engagedThing },
+ * const action = await ChooseAction({
+ *    Action:{ instrument: ["", 0], object: engagedThing },
  * })
- * console.assert(
- *  thing1.Action.result.identifier === 5
- * )
- * const thing2 = await ChooseAction({
- *   ChooseAction: { actionOption: "sameAs:even" },
- *   Action: { object: engagedThing  },
- * })
- * console.assert(
- *  thing2.Action.result.identifier === 1
- * )
- * // Three `things` match "sameAs:even"
- * const thing3 = await FindAction({
- *   ChooseAction: { actionOption: "sameAs:odd" },
- *   Action: { object: engagedThing  },
- * })
- * console.assert(
- *  thing3.Action.result.identifier === 4
- * )
+ * console.assert(action.Action.result.identifier==="thing-0001")
+ * console.assert(!action.Action.result.sameAs)
+ * console.assert(action.Action.QuantitativeValue)
+ * console.assert(!action.Action.QuantitativeValue.value)
  */
 export const ChooseAction = async function ChooseAction(action) {
-  const mainEntityOfPage = "ChooseAction"
+  const mainEntityOfPage = "InstallAction"
   action = await Action({ ...action, mainEntityOfPage })
-  action.ChooseAction = action.ChooseAction || {}
-  action.ChooseAction.actionOption = action.ChooseAction.actionOption || ""
-  action.ChooseAction.actionOption = parseArgs(
-    action.ChooseAction.actionOption,
-    ":",
-  )
-  let chosenThing = find(
-    action.Action.object.ItemList.itemListElement,
-    matches(action.ChooseAction.actionOption),
-  )
-  if (!chosenThing) {
-    action.Action.error = `${JSON.stringify(
-      action.ChooseAction.actionOption,
-    )} not found in \`thing.ItemList.itemListElement\``
-    action.Action.actionStatus = "FailedActionStatus"
-  } else {
-    action.Action.result = chosenThing
-    action.Action.actionStatus = "CompletedActionStatus"
-  }
+  action.Action.instrument = action.Action.instrument | CLEANABLE
+  const cleaner = (thing) => Object.entries(thing).reduce((acc, [key, val]) => {
+    if (isArray(val)) {
+      acc[key] = val.map(cleaner)
+    } else if (isObject(val)) {
+      acc[key] = cleaner(val)
+    } else if (!CLEANABLE.includes(val)) {
+      acc[key] = val
+    }
+    return acc
+  }, {})
+  action.Action.result = cleaner(action.Action.object)
+  action.Action.actionStatus = "CompletedActionStatus"
   return await Message(action)
 }
 

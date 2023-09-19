@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash-es"
 import Action from "../../../Thing/Action.js"
 import ItemList from "../../../Thing/Intangible/ItemList.js"
 import Message from "../../../Thing/CreativeWork/Message.js"
@@ -20,7 +21,7 @@ export const ViewAction = async function ViewAction(action) {
   action = await Action({ ...action, mainEntityOfPage })
   action.Action.result = cloneDeep(action.Action.object)
   action.Action.result.ItemList.itemListElement =
-    thing.Action.object.ItemList.itemListElement.map(
+    action.Action.object.ItemList.itemListElement.map(
       ({ identifier }) => identifier,
     )
   action.Action.actionStatus = "CompletedActionStatus"

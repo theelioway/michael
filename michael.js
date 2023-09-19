@@ -36,8 +36,6 @@ export const callMicheal = async function (thing) {
   return thing
 }
 
-export const michael = async (thing, actions) => {
-  return await pipeline(thing, actions)
-}
+export const michael = async (thing, actions) => await pipeline(thing, actions)
 
 export default michael

@@ -22,15 +22,15 @@ export const ActionUnitTest = async Action => {
     it("returns a `thing` from undefined input", async () => {
       let action = await Action()
       should.equal(action.identifier, undefined)
-      action.mainEntityOfPage.should.be.eql(typeName)
-      action.ItemList.itemListElement.should.be.eql([])
+      action.mainEntityOfPage.should.eql(typeName)
+      action.ItemList.itemListElement.should.eql([])
     })
 
     it("returns a `thing` for a `thing`", async () => {
       let action = await Action({ identifier: "action-0001" })
-      action.identifier.should.be.eql("action-0001")
-      action.mainEntityOfPage.should.be.eql(typeName)
-      action.ItemList.itemListElement.should.be.eql([])
+      action.identifier.should.eql("action-0001")
+      action.mainEntityOfPage.should.eql(typeName)
+      action.ItemList.itemListElement.should.eql([])
     })
 
     it("returns an `action` for an `action`", async () => {
@@ -44,13 +44,13 @@ export const ActionUnitTest = async Action => {
         },
       })
       // As proven elsewhere.
-      action.identifier.should.be.eql("action-0001")
-      action.mainEntityOfPage.should.be.eql(typeName)
-      action.ItemList.itemListElement.should.be.eql([])
+      action.identifier.should.eql("action-0001")
+      action.mainEntityOfPage.should.eql(typeName)
+      action.ItemList.itemListElement.should.eql([])
       // Input becomes `object` `thing`.
-      action.Action.object.identifier.should.be.eql("thing-0001")
-      action.Action.object.mainEntityOfPage.should.be.eql("Thing")
-      action.Action.object.ItemList.itemListElement.should.be.eql([])
+      action.Action.object.identifier.should.eql("thing-0001")
+      action.Action.object.mainEntityOfPage.should.eql("Thing")
+      action.Action.object.ItemList.itemListElement.should.eql([])
     })
 
     it("`name` and `description`", async () => {
@@ -63,17 +63,13 @@ export const ActionUnitTest = async Action => {
         },
       })
       // Input becomes `object` `thing`.
-      action.name.should.be.eql("thing-0001 Thing Action")
-      action.description.should.be.eql("Action [instrument:{}] supported")
+      action.name.should.eql("thing-0001 Thing Action")
+      action.description.should.eql("Action [instrument:{}]")
     })
 
     it("pipes default Action.target", async () => {
       const actualThing = await Action()
-      actualThing.Action.target({}).should.be.eql({
-        Action: {
-          actionStatus: "CompletedActionStatus",
-        },
-      })
+      actualThing.Action.target({}).should.eql({})
     })
 
     it("pipes blank Action", async () => {
@@ -81,20 +77,17 @@ export const ActionUnitTest = async Action => {
       // Can't test for equality against functions.
       delete actualThing.Action.target
       actualThing.name.should.eql("Thing Action")
-      actualThing.description.should.eql(
-        "Action [instrument:{}] supported",
-      )
+      actualThing.description.should.eql("Action [instrument:{}]")
       actualThing.mainEntityOfPage.should.eql(typeName)
-      actualThing.Action.should.eql({
-        actionStatus: "PotentialActionStatus",
-        instrument: {},
-      })
-      actualThing.object.should.eql({
-        mainEntityOfPage: "Thing",
+      actualThing.Action.actionStatus.should.eql("PotentialActionStatus")
+      actualThing.Action.instrument.should.eql({})
+      actualThing.Action.object.should.eql({
         ItemList: {
           itemListElement: [],
         },
+        mainEntityOfPage: "Thing",
       })
+      should.equal(actualThing.Action.result, undefined)
     })
   })
 }

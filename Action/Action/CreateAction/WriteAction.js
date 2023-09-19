@@ -1,6 +1,5 @@
 import { promises as fs } from "fs"
 import Action from "../../../Thing/Action.js"
-import ItemList from "../../../Thing/Intangible/ItemList.js"
 import Message from "../../../Thing/CreativeWork/Message.js"
 
 /**
@@ -23,7 +22,7 @@ export const WriteAction = async action => {
       JSON.stringify(action.Action.object, null, 2),
       "utf8",
     )
-    action.Action.result = JSON.stringify(action.Action.object)
+    action.Action.result = action.Action.object
     action.Action.actionStatus = "CompletedActionStatus"
   }
   return await Message(action)
