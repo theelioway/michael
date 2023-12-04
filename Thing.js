@@ -1,4 +1,4 @@
-import ItemList from "./Thing/Intangible/ItemList.js"
+import ItemList from "./Thing/Intangible/ItemList.js";
 
 /**
  * The most generic type of item.
@@ -19,10 +19,10 @@ import ItemList from "./Thing/Intangible/ItemList.js"
  * console.assert(thing2.ItemList.itemListElement)
  */
 export const Thing = async function Thing(thing) {
-  const mainEntityOfPage = "Thing"
-  thing = await ItemList(thing)
-  thing.mainEntityOfPage = thing.mainEntityOfPage || mainEntityOfPage
-  return thing
-}
+  const mainEntityOfPage = "Thing";
+  thing = await ItemList(thing);
+  thing.mainEntityOfPage = thing.mainEntityOfPage || mainEntityOfPage;
+  return thing;
+};
 
-export default Thing
+export default Thing;

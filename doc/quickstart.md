@@ -44,17 +44,17 @@ const Thing = asyncfunction (thing) {
 This is another example which writes a thing to a file.
 
 ```javascript
-import { promises as fs } from "fs"
-import { ItemList } from "@elioway/michael"
+import { promises as fs } from "fs";
+import { ItemList } from "@elioway/michael";
 
 /** WriteAction: Write a file to disk.
  *
  * @param {Thing} thing.url as the path to the file.
  * @returns {Thing}
  */
-export const WriteAction = async thing => {
-  thing = await ItemList(thing)
-  thing.mainEntityOfPage = thing.mainEntityOfPage || "WriteAction"
+export const WriteAction = async (thing) => {
+  thing = await ItemList(thing);
+  thing.mainEntityOfPage = thing.mainEntityOfPage || "WriteAction";
   if (thing && !thing.url) {
     // Return an error message as a `thing`.
     return ItemList({
@@ -64,12 +64,12 @@ export const WriteAction = async thing => {
         error: "Missing `thing.url`",
         actionStatus: "FailedActionStatus",
       },
-    })
+    });
   } else {
     // Wait until written.
-    await fs.writeFile(thing.url, JSON.stringify(thing, null, 2), "utf8")
+    await fs.writeFile(thing.url, JSON.stringify(thing, null, 2), "utf8");
     // Always return the `thing`.
-    return thing
+    return thing;
   }
-}
+};
 ```

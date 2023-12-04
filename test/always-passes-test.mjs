@@ -1,23 +1,20 @@
-import chai from "chai"
+import { should } from "chai";
 
-const should = chai.should()
+should();
 
-describe("Mocha", () => {
-  it.skip("always passes", () => {
-    let a = { a: 1 }
-    let b = { a: 1 }
-
-    it.skip("always passes", () => {
-      should.equal(1, 1)
-    })
-    it.skip("never fails", () => {
-      true.should.be.ok
-    })
-    it.skip("equal", () => {
-      a.should.not.be.equal(b)
-    })
-    it.skip("eql", () => {
-      a.should.eql(b)
-    })
-  })
-})
+describe("mocha", () => {
+  let a = { a: 1 };
+  let b = { a: 1 };
+  it("always passes", () => {
+    should().be.equal(1, 1);
+  });
+  it("never fails", () => {
+    true.should.be.ok;
+  });
+  it("equal", () => {
+    a.should.not.be.equal(b);
+  });
+  it("eql", () => {
+    a.should.eql(b);
+  });
+});

@@ -22,9 +22,9 @@ All functions take `thing` as a parameter (it can be empty) and return the trans
 `index.js`
 
 ```javascript
-import { callMicheal } from "@elioway/micheal"
-let commandThing = callMicheal({ identifier: "my-cli" })
-console.log(commandThing)
+import { callMicheal } from "@elioway/micheal";
+let commandThing = callMicheal({ identifier: "my-cli" });
+console.log(commandThing);
 ```
 
 If called like this:
@@ -51,21 +51,27 @@ It will log:
 `index.js`
 
 ```javascript
-import { callMicheal, pipeline } from "@elioway/micheal"
-let commandThing = callMicheal({ identifier: "my-cli" })
+import { callMicheal, pipeline } from "@elioway/micheal";
+let commandThing = callMicheal({ identifier: "my-cli" });
 
 await pipeline(commandThing, [
   {
     Action: {
-      target: thing => new Object({ ...thing, alternateName: "Pipelined" }),
+      target: (thing) => new Object({ ...thing, alternateName: "Pipelined" }),
     },
   },
   {
-    Action: { target: thing => new Object({ ...thing, sameAs: "SchemaOrg" }) },
+    Action: {
+      target: (thing) => new Object({ ...thing, sameAs: "SchemaOrg" }),
+    },
   },
-  { Action: { target: thing => new Object({ ...thing, name: "pipelined" }) } },
-  { Action: { target: thing => new Object({ ...thing, url: "schema.org" }) } },
-])
+  {
+    Action: { target: (thing) => new Object({ ...thing, name: "pipelined" }) },
+  },
+  {
+    Action: { target: (thing) => new Object({ ...thing, url: "schema.org" }) },
+  },
+]);
 ```
 
 - `micheal` calls the `pipeline`. It's your entry point to process commands from your CLI app.

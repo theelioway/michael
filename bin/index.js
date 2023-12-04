@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { callMicheal, michael } from "../michael.js"
-import Thing from "../Thing.js"
+import { callMicheal, michael } from "../michael.js";
+import Thing from "../Thing.js";
 import {
   // Action,
   ChooseAction,
@@ -11,37 +11,37 @@ import {
   ReceiveAction,
   SearchAction,
   ViewAction,
-} from "../Thing/index.js"
+} from "../Thing/index.js";
 
 const READACTION = {
   name: "Readin file at `thing.url`",
   Action: { target: ReadAction },
-}
+};
 const RECEIVEACTION = {
   name: "JSON.parse(`thing`)",
   Action: { target: ReceiveAction },
-}
+};
 const FINDACTION = {
   name: "Find `things` matching `Action.instrument`",
   Action: { target: FindAction },
-}
+};
 const VIEWACTION = {
   name: "Log entire `thing`",
   Action: { target: ViewAction },
-}
-const THING = { name: "Render as type `Thing`", Action: { target: Thing } }
+};
+const THING = { name: "Render as type `Thing`", Action: { target: Thing } };
 const CHOOSEACTION = {
   name: "Exact `thing` found in `things` listed against `ChooseAction.actionOption`",
   Action: { target: ChooseAction },
-}
+};
 const SEARCHACTION = {
   name: "Matching `thing` from `things` listed against `ChooseAction.actionOption`",
   Action: { target: SearchAction },
-}
+};
 const IMPORTACTION = {
   name: "Import `thing` from js module at `thing.url`",
   Action: { target: ImportAction },
-}
+};
 const QUOTEACTION = {
   name: "Log summary of `thing`",
   Action: {
@@ -55,7 +55,7 @@ const QUOTEACTION = {
       "ItemList.itemListElementa",
     ]),
   },
-}
+};
 
 const commands = {
   callMicheal: [THING, VIEWACTION],
@@ -67,11 +67,11 @@ const commands = {
   ReadAction: [READACTION, RECEIVEACTION, THING, VIEWACTION],
   SearchAction: [READACTION, RECEIVEACTION, THING, SEARCHACTION, VIEWACTION],
   ViewAction: [READACTION, RECEIVEACTION, THING, VIEWACTION],
-}
+};
 
-const michaelCLI = async thing => {
-  thing = callMicheal(thing)
-  await michael(thing, commands[thing.potentialAction])
-}
+const michaelCLI = async (thing) => {
+  thing = callMicheal(thing);
+  await michael(thing, commands[thing.potentialAction]);
+};
 
-michaelCLI({ url: "thing.json" })
+michaelCLI({ url: "thing.json" });

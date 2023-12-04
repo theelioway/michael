@@ -1,41 +1,44 @@
-import { set } from "lodash-es"
-import { parseArgs } from "./lib/index.js"
+import { parseArgs } from "./lib/index.js";
 
 export const pipeline = async (thing, actions) => {
-  thing = thing || {}
-  actions = actions || []
+  thing = thing || {};
+  actions = actions || [];
   return actions.reduce(async (prevAction, action) => {
-    const prevThing = await prevAction
-    return action.Action.target(prevThing)
-  }, Promise.resolve(thing))
-}
+    const prevThing = await prevAction;
+    return action.Action.target(prevThing);
+  }, Promise.resolve(thing));
+};
 
 export const callMicheal = async function (thing) {
-  let [, , potentialAction, ...args] = process.argv
+  let [, , Thing, ...args] = process.argv;
   // default for no args
-  thing = thing || {}
-  args = args || []
+  thing = thing || {};
+  args = args || [];
   // default first arg
-  if (potentialAction) {
-    if (potentialAction.includes("=")) {
-      args.push(potentialAction)
-      potentialAction = "Action"
+  if (Thing) {
+    if (Thing.includes("=")) {
+      args.push(Thing);
+      Thing = "Action";
     }
-    if (potentialAction.startsWith("-")) {
-      potentialAction = "Action"
+    if (Thing.startsWith("-")) {
+      Thing = "Action";
     }
   } else {
-    potentialAction = "Action"
+    Thing = "Action";
   }
-  let parsedArgs = parseArgs(args)
+  let parsedArgs = parseArgs(args);
   thing = {
-    potentialAction,
+    Thing,
     ...thing,
-  }
-  Object.entries(parsedArgs).forEach(([path, value]) => set(thing, path, value))
-  return thing
-}
+  };
+  Object.entries(parsedArgs).forEach(([path, value]) =>
+    set(thing, path, value),
+  );
+  return thing;
+};
 
-export const michael = async (thing, actions) => await pipeline(thing, actions)
+export { parseArgs };
 
-export default michael
+export const michael = async (thing, actions) => await pipeline(thing, actions);
+
+export default michael;

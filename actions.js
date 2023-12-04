@@ -1,10 +1,10 @@
-const CRUD = "Action"
-const TURD = "ControlAction"
-const LUTE = "OrganizeAction"
+const CRUD = "Action";
+const TURD = "ControlAction";
+const LUTE = "OrganizeAction";
 
-const error = (err = console.error(String(err)))
+const error = (err = console.error(String(err)));
 
-const buildAction = buildThing => thing =>
+const buildAction = (buildThing) => (thing) =>
   new Object({
     mainEntityOfPage: CRUD,
     pontentialAction: CRUD,
@@ -14,75 +14,75 @@ const buildAction = buildThing => thing =>
       error,
       target: (thing, args) => console.log("QuoteAction", thing, args),
     },
-  })
+  });
 
-const crudT = buildAction({ mainEntityOfPage: CRUD, pontentialAction: CRUD })
-const turdT = buildAction({ mainEntityOfPage: TURD, pontentialAction: TURD })
-const luteT = buildAction({ mainEntityOfPage: LUTE, pontentialAction: LUTE })
+const crudT = buildAction({ mainEntityOfPage: CRUD, pontentialAction: CRUD });
+const turdT = buildAction({ mainEntityOfPage: TURD, pontentialAction: TURD });
+const luteT = buildAction({ mainEntityOfPage: LUTE, pontentialAction: LUTE });
 const schemaT = buildAction({
   mainEntityOfPage: TURD,
   pontentialAction: "DiscoverAction",
-})
+});
 const takeupT = buildAction({
   mainEntityOfPage: TURD,
-  pontentialAction: "CreateAction",
-})
+  pontentialAction: " ",
+});
 const updateT = buildAction({
   mainEntityOfPage: TURD,
   pontentialAction: "UpdateAction",
-})
+});
 const readT = buildAction({
   mainEntityOfPage: TURD,
   pontentialAction: "ReadAction",
-})
+});
 const destroyT = buildAction({
   mainEntityOfPage: TURD,
   pontentialAction: "DeleteAction",
-})
+});
 const listT = buildAction({
   mainEntityOfPage: LUTE,
   pontentialAction: "ViewAction",
-})
+});
 const unlistT = buildAction({
   mainEntityOfPage: LUTE,
   pontentialAction: "RejectAction",
-})
+});
 const takeonT = buildAction({
   mainEntityOfPage: LUTE,
   pontentialAction: "UpdateAction.AddAction",
-})
+});
 const enlistT = buildAction({
   mainEntityOfPage: LUTE,
   pontentialAction: "UpdateAction.AddAction.InsertAction",
-})
+});
 const searchT = buildAction({
   mainEntityOfPage: LUTE,
   pontentialAction: "SearchAction",
-})
+});
 const authT = buildAction({
   mainEntityOfPage: LUTE,
   pontentialAction: "AuthorizeAction",
-})
+});
 const loginT = buildAction({
   mainEntityOfPage: LUTE,
   pontentialAction: "JoinAction",
-})
+});
 const logoutT = buildAction({
   mainEntityOfPage: LUTE,
   pontentialAction: "SearchAction",
-})
+});
 const engageT = buildAction({
   mainEntityOfPage: LUTE,
   pontentialAction: "ConsumeAction",
-})
+});
 const permitT = buildAction({
   mainEntityOfPage: LUTE,
   pontentialAction: "EndorseAction",
-})
+});
 const anonifyT = buildAction({
   mainEntityOfPage: LUTE,
   pontentialAction: "InviteAction",
-})
+});
 
 export default {
   Action: crudT,
@@ -192,4 +192,4 @@ export default {
   // WatchAction: (thing, args) => WatchAction(thing, args),
   // WearAction: (thing, args) => WearAction(thing, args),
   // WinAction: (thing, args) => WinAction(thing, args),
-}
+};
