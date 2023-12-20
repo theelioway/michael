@@ -8,7 +8,6 @@ const delayAsync = async (thing, ms) =>
 const delayPromise = (thing, ms) =>
   new Promise((resolve) => setTimeout(() => resolve(thing), ms));
 
-
 describe("module | cliThing", () => {
   it("gets a Michael", async () => {
     let myMichael = await cliThing();
