@@ -1,9 +1,13 @@
 {
   "description": "A CLI builder written with Schema Actions, the elioWay.",
-  "name": "@elioway/michael",
+  "disambiguatingDescription": "I descry From yonder blazing cloud that veils the hill One of the heavenly host",
   "identifier": "michael",
   "private": true,
   "mainEntityOfPage": "SoftwareSourceCode",
+  "name": "@elioway/michael",
+  "sameAs": "https://Angels.theElioWay.com/",
+  "subjectOf": "Angels",
+  "url": "https://michael.Angels.theElioWay.com",
   "SoftwareSourceCode": {
     "codeSampleType": "experimental",
     "targetProduct": "elioangels"
@@ -16,6 +20,9 @@
     ]
   },
   "bin": "./bin/index.js",
+  "dependencies": {
+    "@elioway/abdiel": "file:../abdiel"
+  },
   "devDependencies": {
     "chai": "^4.3.10",
     "mocha": "^10.2.0",
@@ -34,7 +41,6 @@
     "url": "https://gitlab.com/elioangels/michael/"
   },
   "scripts": {
-    "@elioway/abdiel": "file:../abdiel",
     "michael": "node bin/index.js",
     "prettier": "prettier . --list-different --write",
     "test": "mocha  --exit --timeout 3000 --recursive"
