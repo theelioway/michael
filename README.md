@@ -13,17 +13,17 @@ All functions take `thing` as a parameter (it can be empty) and return the trans
 
 **micheal** has 3 `handlers` which can be used to rapidly scaffold a CLI tool.
 
-## `callMicheal`
+## `cli`
 
-`callMicheal` parses `process.argv` and gathers up the command option as `potentialAction`; and `property=value` args are folded into the returned `thing`.
+`cli` parses `process.argv` and gathers up the command option as `potentialAction`; and `property=value` args are folded into the returned `thing`.
 
 ### Usage
 
 `index.js`
 
 ```javascript
-import { callMicheal } from "@elioway/micheal";
-let commandThing = callMicheal({ identifier: "my-cli" });
+import { cliThing } from "@elioway/micheal";
+let commandThing = cliThing({ identifier: "my-cli" });
 console.log(commandThing);
 ```
 
@@ -51,8 +51,8 @@ It will log:
 `index.js`
 
 ```javascript
-import { callMicheal, pipeline } from "@elioway/micheal";
-let commandThing = callMicheal({ identifier: "my-cli" });
+import { cliThing, pipeline } from "@elioway/micheal";
+let commandThing = cliThing({ identifier: "my-cli" });
 
 await pipeline(commandThing, [
   {

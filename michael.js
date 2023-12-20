@@ -1,44 +1,50 @@
-import { parseArgs } from "./lib/index.js";
+import { objectCloner } from  "@elioway/abdiel";
+import { parseCliArgs } from "./lib/index.js";
 
-export const pipeline = async (thing, actions) => {
-  thing = thing || {};
+const thingCloner = (object) => Object.assign({
+   ...object,
+   ItemList: {
+     ...object.ItemList,
+     itemListElement: object.ItemList.itemListElement.map(objectCloner),
+   },
+ })
+
+export const cliThing = function (thing) {
+  let [, , ...args] = process.argv;
+  let parsedArgs = parseCliArgs(String)(args || []);
+  return Object.assign({}, thingCloner(thing), parsedArgs);
+};
+
+export const cliAction = function (thing) {
+  let [, , ...args] = process.argv;
+  let parsedArgs = parseCliArgs(String)(args || []);
+  return Object.assign({}, action, {
+    mainEntityOfPage: "Action",
+    Action: {
+      actionStatus: "CompletedActionStatus",
+      instrument: JSON.stringify(parsedArgs),
+      object: thing,
+      result: thingCloner(thing),
+    },
+  })
+};
+
+export const actionPipeline = async (action, actions) => {
   actions = actions || [];
-  return actions.reduce(async (prevAction, action) => {
-    const prevThing = await prevAction;
-    return action.Action.target(prevThing);
-  }, Promise.resolve(thing));
+  return actions.reduce(async (prevAction, nextAction) => {
+    const prevResult = await prevAction;
+    if (prevResult.Action && prevResult.Action.actionStatus==="FailedActionStatus") {
+      throw Error(prevResult.Action.error || prevResult.Action.actionStatus)
+    } else {
+      prevResult.Action.result = thingCloner(prevResult.Action.result)
+    }
+    return nextAction(prevResult);
+  }, Promise.resolve(action));
 };
 
-export const callMicheal = async function (thing) {
-  let [, , Thing, ...args] = process.argv;
-  // default for no args
-  thing = thing || {};
-  args = args || [];
-  // default first arg
-  if (Thing) {
-    if (Thing.includes("=")) {
-      args.push(Thing);
-      Thing = "Action";
-    }
-    if (Thing.startsWith("-")) {
-      Thing = "Action";
-    }
-  } else {
-    Thing = "Action";
-  }
-  let parsedArgs = parseArgs(args);
-  thing = {
-    Thing,
-    ...thing,
-  };
-  Object.entries(parsedArgs).forEach(([path, value]) =>
-    set(thing, path, value),
-  );
-  return thing;
-};
+export const michael = async (thing, actions) => await actionPipeline(cliAction(thing), actions);
 
-export { parseArgs };
-
-export const michael = async (thing, actions) => await pipeline(thing, actions);
+export { parseCliArgs };
 
 export default michael;
+

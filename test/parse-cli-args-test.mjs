@@ -1,12 +1,12 @@
 import { should } from "chai";
-import { parseArgs } from "../lib/parseArgs.js";
+import { parseCliArgs } from "../lib/parse-cli-args.js";
 
 should();
 
 const transformer = () => "found!";
-const parseToFound = parseArgs(transformer);
+const parseToFound = parseCliArgs(transformer);
 
-describe("function | parseArgs", () => {
+describe("function | parseCliArgs", () => {
   it("handles none", () => {
     parseToFound().should.eql({});
     parseToFound("").should.eql({});

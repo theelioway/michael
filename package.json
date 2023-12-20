@@ -34,8 +34,9 @@
     "url": "https://gitlab.com/elioangels/michael/"
   },
   "scripts": {
+    "@elioway/abdiel": "file:../abdiel",
     "michael": "node bin/index.js",
-    "prettier": "prettier --list-different --write \"**/*.{css,html,js,json,md,mjs,scss,ts,yaml}\"",
+    "prettier": "prettier . --list-different --write",
     "test": "mocha  --exit --timeout 3000 --recursive"
   },
   "type": "module",
