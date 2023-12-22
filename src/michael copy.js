@@ -1,12 +1,12 @@
 import { objectCloner } from "@elioway/abdiel";
-import { parseCliArgs } from "./lib/index.js";
+import { parseCliArgs } from "../lib/index.js";
 
-const thingCloner = (object) =>
+const thingCloner = (thing) =>
   Object.assign({
-    ...object,
+    ...thing,
     ItemList: {
-      ...object.ItemList,
-      itemListElement: object.ItemList.itemListElement.map(objectCloner),
+      ...thing.ItemList,
+      itemListElement: thing.ItemList.itemListElement.map(objectCloner),
     },
   });
 
@@ -30,7 +30,7 @@ export const cliAction = function (thing) {
   });
 };
 
-export const actionPipeline = async (action, actions) => {
+export const TransferAction = async (action, actions) => {
   actions = actions || [];
   return actions.reduce(async (prevAction, nextAction) => {
     const prevResult = await prevAction;
@@ -47,7 +47,7 @@ export const actionPipeline = async (action, actions) => {
 };
 
 export const michael = async (thing, actions) =>
-  await actionPipeline(cliAction(thing), actions);
+  await TransferAction(cliAction(thing), actions);
 
 export { parseCliArgs };
 
