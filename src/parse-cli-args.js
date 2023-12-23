@@ -1,8 +1,9 @@
 "use strict";
+import { valueIsMeaningful } from "@elioway/abdiel";
 
 export const parseCliArgs = (transformer) => (args, valueSeparator) => {
   const parsedArgs = {};
-  const notransformer = (x) => x
+  const notransformer = (x) => x;
   valueSeparator = valueSeparator || "=";
   transformer = transformer || notransformer;
   args = args || [];
@@ -18,8 +19,8 @@ export const parseCliArgs = (transformer) => (args, valueSeparator) => {
         .split(valueSeparator)
         .map((s) => s.trim());
       // Ignore invalid arg formats
-      if (!propName || !propValue) {
-        console.log(`Ignoring invalid arg: ${arg}`);
+      if (!valueIsMeaningful(propName) || !valueIsMeaningful(propValue)) {
+        console.log(`Ignoring meaningless arg: ${arg}`);
       } else if (propName && propName.startsWith("-")) {
         console.log(`Ignoring flag arg: ${arg}`);
       } else {

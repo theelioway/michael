@@ -1,4 +1,4 @@
-![](https://elioway.gitlab.io/elioangels/michael/elio-michael-logo.png)
+![](./postcard.jpg)
 
 > CLI, **the elioWay**
 
