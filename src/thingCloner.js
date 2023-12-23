@@ -1,4 +1,7 @@
-const thingCloner = (thing) =>
+"use strict";
+import { objectCloner } from "@elioway/abdiel";
+
+export const thingCloner = (thing) =>
   Object.assign({
     ...thing,
     ItemList: {
@@ -6,3 +9,5 @@ const thingCloner = (thing) =>
       itemListElement: thing.ItemList.itemListElement.map(objectCloner),
     },
   });
+
+export default thingCloner;

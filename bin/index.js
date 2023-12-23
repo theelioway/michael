@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { cliThing, michael } from "../michael.js";
+import { cliThing, michael } from "../src/index.js";
 import Thing from "../Thing.js";
 import {
   // Action,

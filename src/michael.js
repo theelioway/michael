@@ -1,4 +1,5 @@
-import cliAction from "./cliAction.js";
+"use strict";
+import cliAction from "./cli-action.js";
 import pipeline from "./pipeline.js";
 
 export const michael = async (thing, actions) =>

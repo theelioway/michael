@@ -1,3 +1,5 @@
+"use strict";
+
 export const pipeline = async (action, actions) => {
   actions = actions || [];
   return actions.reduce(async (prevAction, nextAction) => {

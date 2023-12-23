@@ -1,4 +1,5 @@
-import { parseCliArgs } from "./parse-cli-args.js";
+"use strict";
+import parseCliArgs from "./parse-cli-args.js";
 
 export const parseCliArgStrings = parseCliArgs(String);
 

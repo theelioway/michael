@@ -1,5 +1,6 @@
 import { should } from "chai";
-import { parseCliArgs } from "../lib/parse-cli-args.js";
+
+import { parseCliArgs } from "../src/parse-cli-args.js";
 
 should();
 

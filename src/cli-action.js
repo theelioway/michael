@@ -1,3 +1,4 @@
+"use strict";
 import cli from "./cli.js";
 
 export const cliAction = function (action) {
