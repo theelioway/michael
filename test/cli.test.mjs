@@ -5,9 +5,13 @@ import { cli } from "../src/cli.js";
 should();
 
 describe("function | cli", () => {
-  it("gives the least we expect", async () => {
-    let myMichael = await cli();
-    myMichael.should.eql({ potentialAction: "Action" });
+  it("returns nought", async () => {
+    let thing = await cli();
+    thing.should.eql({});
+  });
+  it("gives the least of what we send", async () => {
+    let thing = await cli({ potentialAction: "Action" });
+    thing.should.eql({ potentialAction: "Action" });
   });
   it("gets a Michael and give argv to `thing`", async () => {
     const originalArgs = process.argv;
@@ -19,8 +23,8 @@ describe("function | cli", () => {
       "sameAs=Bears",
       "Action.error=Not Found",
     ];
-    let myMichael = await cli();
-    myMichael.should.eql({
+    let thing = await cli();
+    thing.should.eql({
       identifier: "testcli",
       potentialAction: "MichealAction",
       sameAs: "Bears",

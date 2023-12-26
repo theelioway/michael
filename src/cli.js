@@ -8,4 +8,5 @@ export const cli = function (thing) {
   let parsedArgs = parseCliArgStrings(args);
   return Object.assign({}, thing, parsedArgs);
 };
+
 export default cli;

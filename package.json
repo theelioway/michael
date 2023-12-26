@@ -34,7 +34,7 @@
     "nodejs"
   ],
   "license": "MIT",
-  "main": "./michael.js",
+  "main": "./src/index.js",
   "private": true,
   "repository": {
     "type": "git",

@@ -1,8 +1,8 @@
 "use strict";
-import { valueIsMeaningful } from "@elioway/abdiel";
+import { objectDotNotatedSet, valueIsMeaningful } from "@elioway/abdiel";
 
 export const parseCliArgs = (transformer) => (args, valueSeparator) => {
-  const parsedArgs = {};
+  let parsedArgs = {};
   const notransformer = (x) => x;
   valueSeparator = valueSeparator || "=";
   transformer = transformer || notransformer;
@@ -17,14 +17,19 @@ export const parseCliArgs = (transformer) => (args, valueSeparator) => {
       // Split each arg into its name and value parts
       const [propName, propValue] = arg
         .split(valueSeparator)
+        .filter(valueIsMeaningful)
         .map((s) => s.trim());
       // Ignore invalid arg formats
-      if (!valueIsMeaningful(propName) || !valueIsMeaningful(propValue)) {
+      if (!propName || !propValue) {
         console.log(`Ignoring meaningless arg: ${arg}`);
       } else if (propName && propName.startsWith("-")) {
         console.log(`Ignoring flag arg: ${arg}`);
       } else {
-        parsedArgs[propName] = transformer(propValue);
+        parsedArgs = objectDotNotatedSet(
+          parsedArgs,
+          propName,
+          transformer(propValue),
+        );
       }
     }
   }

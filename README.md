@@ -22,9 +22,31 @@ All functions take `thing` as a parameter (it can be empty) and return the trans
 `index.js`
 
 ```javascript
-import { cliThing } from "@elioway/micheal";
-let commandThing = cliThing({ identifier: "my-cli" });
-console.log(commandThing);
+import { jsonMerge } from "@elioway/abdiel";
+import { pipeActions } from "@elioway/micheal";
+let thing = { identifier: "testMicheal" };
+let pipelineActions = [
+  (action) =>
+    jsonMerge(action, {
+      Action: { result: { potentialAction: "Resolve" } },
+    }),
+  (action) => jsonMerge(action, { Action: { result: { sameAs: "the" } } }),
+  (action) => jsonMerge(action, { Action: { result: { url: "pipeline" } } }),
+];
+let pipedThing = await pipeActions(pipelineActions);
+pipedThing.should.eql({
+  mainEntityOfPage: "Action",
+  Action: {
+    actionStatus: "CompletedActionStatus",
+    object: { identifier: "testMicheal" },
+    result: {
+      identifier: "testMicheal",
+      potentialAction: "Resolve",
+      sameAs: "the",
+      url: "pipeline",
+    },
+  },
+});
 ```
 
 If called like this:
