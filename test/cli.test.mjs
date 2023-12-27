@@ -9,10 +9,6 @@ describe("function | cli", () => {
     let thing = await cli();
     thing.should.eql({});
   });
-  it("gives the least of what we send", async () => {
-    let thing = await cli({ potentialAction: "Action" });
-    thing.should.eql({ potentialAction: "Action" });
-  });
   it("gets a Michael and give argv to `thing`", async () => {
     const originalArgs = process.argv;
     process.argv = [

@@ -6,7 +6,7 @@ import { pipeActions } from "../src/pipe-actions.js";
 should();
 
 describe("function | pipeActions", () => {
-  it("pipeActions `blank` with no `actions`", async () => {
+  it("pipeActions undefined", async () => {
     let pipedThing = await pipeActions();
     pipedThing.should.eql({
       mainEntityOfPage: "Action",

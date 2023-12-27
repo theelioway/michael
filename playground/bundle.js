@@ -50,4 +50,4 @@ const bundledCode = bundleDependencies(entryFile) + bundleModule(entryFile);
 // Write the bundled code to the output file (bundle.js)
 fs.writeFileSync(outputFile, bundledCode, "utf-8");
 
-console.log("Bundling complete. File saved as bundle.js");
+console.info("Bundling complete. File saved as bundle.js");

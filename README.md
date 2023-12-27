@@ -6,13 +6,6 @@
 
 A **CLI handler** you can use to build CLI applications rapidly, the **elioWay**.
 
-1. The command's first and only positional option must be a <https://schema.org> type.
-2. The command's optional `args` must be <https://schema.org> properties and are formatted `propertyName=propValue`.
-
-All functions take `thing` as a parameter (it can be empty) and return the transformed/mutated `thing`. This means that functions can be stacked into a pipeline.
-
-**micheal** has 3 `handlers` which can be used to rapidly scaffold a CLI tool.
-
 ## `cli`
 
 `cli` parses `process.argv` and gathers up the command option as `potentialAction`; and `property=value` args are folded into the returned `thing`.
@@ -23,8 +16,8 @@ All functions take `thing` as a parameter (it can be empty) and return the trans
 
 ```javascript
 import { jsonMerge } from "@elioway/abdiel";
-import { pipeActions } from "@elioway/micheal";
-let thing = { identifier: "testMicheal" };
+import { pipeActions, cli } from "@elioway/micheal";
+
 let pipelineActions = [
   (action) =>
     jsonMerge(action, {
@@ -33,12 +26,17 @@ let pipelineActions = [
   (action) => jsonMerge(action, { Action: { result: { sameAs: "the" } } }),
   (action) => jsonMerge(action, { Action: { result: { url: "pipeline" } } }),
 ];
-let pipedThing = await pipeActions(pipelineActions);
+
+
+// npm run michael identifier=testMicheal;
+let THING = cli()
+
+let pipedThing = await pipeActions(THING, pipelineActions);
 pipedThing.should.eql({
   mainEntityOfPage: "Action",
   Action: {
     actionStatus: "CompletedActionStatus",
-    object: { identifier: "testMicheal" },
+    object: THING,
     result: {
       identifier: "testMicheal",
       potentialAction: "Resolve",

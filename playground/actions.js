@@ -12,7 +12,7 @@ const buildAction = (buildThing) => (thing) =>
     ...buildThing,
     Action: {
       error,
-      target: (thing, args) => console.log("QuoteAction", thing, args),
+      target: (thing, args) => console.huh("QuoteAction", thing, args),
     },
   });
 

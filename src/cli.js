@@ -3,10 +3,9 @@ import parseCliArgs from "./parse-cli-args.js";
 
 export const parseCliArgStrings = parseCliArgs(String);
 
-export const cli = function (thing) {
+export const cli = function () {
   let [, , ...args] = process.argv;
-  let parsedArgs = parseCliArgStrings(args);
-  return Object.assign({}, thing, parsedArgs);
+  return parseCliArgStrings(args);
 };
 
 export default cli;
