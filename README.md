@@ -27,9 +27,8 @@ let pipelineActions = [
   (action) => jsonMerge(action, { Action: { result: { url: "pipeline" } } }),
 ];
 
-
 // npm run michael identifier=testMicheal;
-let THING = cli()
+let THING = cli();
 
 let pipedThing = await pipeActions(THING, pipelineActions);
 pipedThing.should.eql({
